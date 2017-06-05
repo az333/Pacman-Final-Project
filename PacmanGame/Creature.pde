@@ -1,0 +1,3 @@
+interface Creature {
+  int position;
+}
