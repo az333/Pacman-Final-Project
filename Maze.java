@@ -26,9 +26,13 @@ public class Maze {
 		    if (textstr.charAt(i) == '\n') {
 			row ++;
 			i ++;
+		    }
+
+		    if (textstr.charAt(i) == '0') {
+			board[row][c] = new Wall(row, c);
+		    } if (text.charAt(i) == '-') {
+			board[row][c] = new EmptySpace(row, c);
 		    } 
-		
-		    board[row][c] = new Location(row, c, textstr.charAt(i));
 
 		    if (textstr.charAt(i) == 'S') {
 			startX = row;
@@ -42,8 +46,8 @@ public class Maze {
 	    System.out.println ("File not found");
 	    System.exit(1);
 	    
-	} 
-	setAnimate(false); 
+	}
+        
     }
 
 
