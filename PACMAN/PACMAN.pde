@@ -1,5 +1,6 @@
   void setup() {
-    size(448,576);
+    size(448, 576);
+    //surface.setResizable(true);
     background(255);
     int rows = 36;
     int cols = 28;
@@ -15,21 +16,21 @@
         } else {
           maze[r][c] = new EmptySpace(r,c); 
         }
-      }
-    }
-    int x = 0, y = 0; 
-    for (int r = 0; r < maze.length; r ++) {
-      for (int c =  0; c < maze[r].length; c ++) { 
-        if (!maze[r][c].isValid()) { 
-          rect (x, y, 10, 10);
-          x += 10; 
-          y += 10;
         }
       }
-          
+      int x = 0, y = 0; 
+      int c;
+      for (int r = 0; r < maze.length; r ++) {
+        for (c =  0; c < maze[r].length; c ++) { 
+          y = (width / 28) * r;
+          x = (height/ 36) * c; 
+          if (!maze[r][c].isValid()) { 
+            rect (x, y, (width/ 28), (height/36));
+          } 
+        }   
+      }
+      
     }
-    
-  }
     // idea is to take the array of strings in lines 
     // and somehow convert them to a 2d array of chars
     // then assign each char to a wall tile
