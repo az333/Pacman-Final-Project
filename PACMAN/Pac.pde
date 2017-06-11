@@ -1,4 +1,6 @@
-class Pacman implements Creature {
+
+class Pacman extends Creature {
+
    int r, c;
    int score; 
   
@@ -7,15 +9,23 @@ class Pacman implements Creature {
     putSelfInGrid(); 
   }
   
+
+     public int xPixel () { 
+      return c * 16  + 8;
+    }
+    public int yPixel () { 
+      return r * 16 + 8; 
+    }
+    
+
   public int getR() { return r; } 
   public int getC() { return c; } 
   
-  public Location getLocation () {
-  return null;}
-  
+ 
    public void moveTo(Location l) {
-     x = l.getR(); 
-     y = l.getC();
+     r = l.getR(); 
+     c = l.getC();
+
    }
  
     public void putSelfInGrid() {
@@ -23,6 +33,14 @@ class Pacman implements Creature {
        r = 26;
     }
     
+
+    public void setScore (int score) { 
+      this.score = score; 
+    } 
+    
+    public int getScore () { return score; } 
+    
+
     public void removeSelfFromGrid() {}
     
     public void beEaten() {}

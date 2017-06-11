@@ -1,32 +1,45 @@
 abstract class Location {
     
-    public int  x ;
-    public int  y ;
+    public int  r;
+    public int  c;
 
-    public int getRow () {
-	return x ;
+
+    public int xPixel  () { 
+      return c * 16  + 8;
     }
-    public int  getCol () {
-	return y ;
+    
+    public int yPixel () { 
+      return r * 16 + 8; 
+    }
+    
+    public int getR() {
+	return r ;
+    }
+    public int getC () {
+	return c ;
     }
    
-    public void setRow  (int newX) {
-	x = newX ;
+    public void setR (int newX) {
+	r = newX ;
     }
-    public void setCol (int y) {
-	this.y = y;
+    public void setC (int y) {
+	this.c = y;
     }
+    
+    abstract boolean hasDot();
+    
+    abstract void setDot (Dot d);
 	   
     public Location (int x, int  y) {
-	this.x = x; 
-	this.y = y;      
+	      this.r = x; 
+	      this.c = y;      
     }
 
     abstract boolean isValid ();
 
     public String toString () { 
 
-	return "(" + x + "," + y + ")" ;
+  	return "(" + r+ "," + c+ ")" ;
     } 
 
-} 
+}
