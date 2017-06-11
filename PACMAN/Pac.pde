@@ -17,13 +17,14 @@ class Pacman extends Creature {
   public int getR() { return r; } 
   public int getC() { return c; } 
   
-  public Location getLocation () {
-  return null;
-}
-  
+
    public void moveTo(Location l) {
      r = l.getR(); 
      c = l.getC();
+   }
+   
+   public Location getLocation () { 
+     return maze[r][c];
    }
  
     public void putSelfInGrid() {
