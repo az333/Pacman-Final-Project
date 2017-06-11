@@ -4,6 +4,7 @@
   Location maze[][]; 
   int x, y;
   PImage mazeimg;
+
   
   void setup() {
     size(448, 576);
@@ -12,6 +13,7 @@
     background(255);
     mazeimg = loadImage("mazeimg.png");
     image(mazeimg, 0, 0);
+  
     int rows = 36;
     int cols = 28;
     String[] lines = loadStrings("MainMaze.txt");

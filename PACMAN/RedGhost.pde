@@ -1,6 +1,7 @@
-PImage red;
 
-public class RedGhost implements Ghost {
+  PImage red; 
+  
+public class RedGhost extends Ghost {
   public Location targetTile, cornerTile;
   public boolean scatterMode, frightenedMode, chaseMode;
   public boolean inHouse;
@@ -8,11 +9,13 @@ public class RedGhost implements Ghost {
   public int dotLimit = 0;
   
   public RedGhost() {
+     red = loadImage("redghost.png");
+    image(red,x,y);
     scatterMode = false;
     setChaseMode();
     moveToPac();
-    red = loadImage("redghost.png");
-    image(red, x, y);
+     
+   
   }
   
   public boolean scatter() {
@@ -62,7 +65,7 @@ public class RedGhost implements Ghost {
   }
   
   public void moveToPac() {
-    if (getLocation != pac.getLocation()) {
+    if (getLocation() != pac.getLocation()) {
       moveTo(pac.getLocation());
     }
   }
@@ -86,7 +89,7 @@ public class RedGhost implements Ghost {
   }
   
   public void moveTo (Location l) {
-    if (getLocation != pac.getLocation()) {
+    if (getLocation() != pac.getLocation()) {
       moveTo(pac.getLocation());
     }
     else {
