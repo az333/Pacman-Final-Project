@@ -1,8 +1,9 @@
   public interface Creature {
-    //public int position;
+  //public int position;
     
    public void moveTo (Location l);
-    
+   
+ 
     public Location getLocation();
     
     public void putSelfInGrid();
