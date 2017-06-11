@@ -1,5 +1,5 @@
 class Pacman implements Creature {
-   int x, y;
+   int r, c;
    int score; 
   
   
@@ -7,20 +7,20 @@ class Pacman implements Creature {
     putSelfInGrid(); 
   }
   
-  public int getX () { return x; } 
-  public int getY () { return y; } 
+  public int getR() { return r; } 
+  public int getC() { return c; } 
   
   public Location getLocation () {
   return null;}
   
    public void moveTo(Location l) {
-     x = l.getX(); 
-     y = l.getY();
+     x = l.getR(); 
+     y = l.getC();
    }
  
     public void putSelfInGrid() {
-       x = 0; 
-       y = 17;
+       c = 13; 
+       r = 26;
     }
     
     public void removeSelfFromGrid() {}
