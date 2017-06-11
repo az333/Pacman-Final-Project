@@ -19,8 +19,8 @@ class Pacman implements Creature {
    }
  
     public void putSelfInGrid() {
-       x = 0; 
-       y = 17;
+       x = 13; 
+       y = 26;
     }
     
     public void removeSelfFromGrid() {}
