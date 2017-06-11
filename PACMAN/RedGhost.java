@@ -1,3 +1,5 @@
+PImage red;
+
 public class RedGhost implements Ghost {
   public Location targetTile, cornerTile;
   public boolean scatterMode, frightenedMode, chaseMode;
@@ -8,7 +10,9 @@ public class RedGhost implements Ghost {
   public RedGhost() {
     scatterMode = false;
     setChaseMode();
-    moveToPacman();
+    moveToPac();
+    red = loadImage("redghost.png");
+    image(red, x, y);
   }
   
   public boolean scatter() {
@@ -57,8 +61,36 @@ public class RedGhost implements Ghost {
     return null;
   }
   
-  public void moveToPacman() {
-    if (
+  public void moveToPac() {
+    if (getLocation != pac.getLocation()) {
+      moveTo
+  }
+  
+  void setCornerTile() {
+    cornerTile = maze[width - 32][0];
+  }
+  
+  void setTargetTile() {
+    targetTile = pac.getLocation();
+  }
+  
+  void beEaten() {
+    removeSelfFromGrid();
+  }
+  
+  void removeSelfFromGrid() {
+  }
+  
+  void putSelfInGrid() {
+  }
+  
+  public void moveTo (Location l) {
+    if (getLocation != pac.getLocation()) {
+      moveTo(pac.getLocation());
+    }
+    else {
+      removeSelfFromGrid();
+    }
   }
     
 }
