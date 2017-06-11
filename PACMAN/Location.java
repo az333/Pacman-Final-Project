@@ -3,17 +3,17 @@ abstract class Location {
     public int  x ;
     public int  y ;
 
-    public int getRow () {
+    public int getX () {
 	return x ;
     }
-    public int getCol () {
+    public int getY () {
 	return y ;
     }
    
-    public void setRow  (int newX) {
+    public void setX (int newX) {
 	x = newX ;
     }
-    public void setCol (int y) {
+    public void setY (int y) {
 	this.y = y;
     }
 	   
@@ -26,7 +26,7 @@ abstract class Location {
 
     public String toString () { 
 
-	return "(" + x + "," + y + ")" ;
+  	return "(" + x + "," + y + ")" ;
     } 
 
 } 

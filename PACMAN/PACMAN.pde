@@ -40,7 +40,7 @@
             //noStroke(); (add this in later when we're done)
             rect (x, y, (width/ 28), (height/36));
             // for tiny dots
-            little = new Dot(false, false);
+           little = new Dot(false, false);
             if (little.isLittleDot()) {
               fill(#FFEC00);
               noStroke();
@@ -50,8 +50,27 @@
         }   
       }
       
-    }
+  }
   
   void draw() {
-    Pacman pac = new Pacman();
-  }
+    Pacman pac = new Pacman (); 
+    color col = color(0, 255, 0);
+    fill(col);
+    noStroke();
+    int x = pac.getX() * (width / 28) + 8;
+    int y =pac.getY() * (height/ 36) + 8;
+    ellipse (x, y , 8 , 8);
+   /*  KeyEvent e = new KeyEvent();
+        int c = e.getKeyCode ();
+        if (c==KeyEvent.VK_UP) {                
+            e.y--;   
+        } else if(c==KeyEvent.VK_DOWN) {                
+            b.y++;   
+        } else if(c==KeyEvent.VK_LEFT) {                
+            b.x--;   
+        } else if(c==KeyEvent.VK_RIGHT) {                
+            b.x++;   
+        } */
+      
+    }
+  

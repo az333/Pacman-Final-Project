@@ -1,16 +1,15 @@
-public interface Creature {
-  //public int position;
-  
-  void moveTo (Location l);
-  
-  Location getLocation();
-  
-  void putSelfInGrid();
-  
-  void removeSelfFromGrid();
-  
-  void beEaten();
-  
-  String toString();
-  
-}
+  public interface Creature {
+    //public int position;
+    
+   public void moveTo (Location l);
+    
+    public Location getLocation();
+    
+    public void putSelfInGrid();
+    
+    public void removeSelfFromGrid();
+    
+    public void beEaten();
+    
+    public String toString(); 
+  }
