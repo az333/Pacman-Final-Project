@@ -12,8 +12,7 @@
       return r * 16 + 8; 
     }
  
-    abstract Location getLocation();
-    
+ 
     abstract void putSelfInGrid();
     
     abstract void removeSelfFromGrid(); 
