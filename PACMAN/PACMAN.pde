@@ -56,7 +56,7 @@
       }
       
      pac = new Pacman (); 
-    locPac = maze[pac.getX()][pac.getY()]; 
+    locPac = maze[pac.getR()][pac.getC()]; 
 
   }
   
@@ -66,8 +66,8 @@
     color col = color(0, 255, 0);
     fill(col);
     noStroke();
-    x = locPac.getX() * (width / 28) + 16;
-    y = locPac.getY() * (height/ 36) + 8;
+    y = locPac.getR() * (width / 28) + 16;
+    x = locPac.getC() * (height/ 36) + 8;
     ellipse (x, y , 16, 16);
 
     }
@@ -75,24 +75,23 @@
       void keyPressed() {
      
     if (key == CODED) {
-     // System.out.println ("x: " + pac.getX() + " y: " + pac.getY());
+     // System.out.println ("x: " + pac.getR() + " y: " + pac.getY());
       //System.out.println (maze[13][26].isValid());
       if (keyCode == UP) {
-        
-        if (maze[pac.getY()-1][pac.getX()].isValid()) 
-        locPac = maze[pac.getY()-1][pac.getX()];
+        if (maze[pac.getR() -1][pac.getC()].isValid()) 
+        locPac = maze[pac.getR()- 1][pac.getC()];
       } else if (keyCode == DOWN) {
-        if (maze[pac.getY()+1][pac.getX()].isValid()) 
-        locPac = maze[pac.getY()+1][pac.getX()];
+        if (maze[pac.getR() + 1][pac.getC()].isValid()) 
+        locPac = maze[pac.getR()+1][pac.getC()];
       } else if (keyCode == RIGHT) { 
-        if (maze[pac.getY()][pac.getX() + 1].isValid()) { 
+        if (maze[pac.getR()][pac.getC() + 1].isValid()) { 
           //System.out.println ("true");
-        locPac = maze[pac.getY()][pac.getX() + 1];
+        locPac = maze[pac.getR()][pac.getC() + 1];
         }
         //System.out.println ("false");
       } else if (keyCode == LEFT) { 
-        if (maze[pac.getY()][pac.getX() -1 ].isValid()) 
-        locPac = maze[pac.getY()][pac.getX() -1];
+        if (maze[pac.getR()][pac.getC() - 1].isValid()) 
+        locPac = maze[pac.getR()][pac.getC() - 1];
       }
   }
 }

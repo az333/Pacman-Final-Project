@@ -1,32 +1,32 @@
 abstract class Location {
     
-    public int  x ;
-    public int  y ;
+    public int  r;
+    public int  c;
 
-    public int getX () {
-	return x ;
+    public int getR() {
+	return r ;
     }
-    public int getY () {
-	return y ;
+    public int getC () {
+	return c ;
     }
    
-    public void setX (int newX) {
-	x = newX ;
+    public void setR (int newX) {
+	r = newX ;
     }
-    public void setY (int y) {
-	this.y = y;
+    public void setC (int y) {
+	this.c = y;
     }
 	   
     public Location (int x, int  y) {
-	this.x = x; 
-	this.y = y;      
+	this.r = x; 
+	this.c = y;      
     }
 
     abstract boolean isValid ();
 
     public String toString () { 
 
-  	return "(" + x + "," + y + ")" ;
+  	return "(" + r+ "," + c+ ")" ;
     } 
 
 } 
