@@ -6,7 +6,7 @@ abstract class Location {
     public int getRow () {
 	return x ;
     }
-    public int  getCol () {
+    public int getCol () {
 	return y ;
     }
    

@@ -1,7 +1,14 @@
+  Dot little, big, fruit;
+  
+  PImage mazeimg;
+  
   void setup() {
     size(448, 576);
+    //size(448, 726);
     //surface.setResizable(true);
     background(255);
+    mazeimg = loadImage("mazeimg.png");
+    image(mazeimg, 0, 0);
     int rows = 36;
     int cols = 28;
     String[] lines = loadStrings("MainMaze.txt");
@@ -22,21 +29,29 @@
       int c;
       for (int r = 0; r < maze.length; r ++) {
         for (c =  0; c < maze[r].length; c ++) { 
-          y = (width / 28) * r;
-          x = (height/ 36) * c; 
-          if (!maze[r][c].isValid()) { 
+          y = (width / 28) * r; //+75;
+          x = (height / 36) * c; 
+          if (!maze[r][c].isValid()) { // if it's wall
+            noFill();
             rect (x, y, (width/ 28), (height/36));
           } 
+          else if (maze[r][c].isValid()){ // if it's an open space
+            fill(#000000); 
+            //noStroke(); (add this in later when we're done)
+            rect (x, y, (width/ 28), (height/36));
+            // for tiny dots
+            little = new Dot(false, false);
+            if (little.isLittleDot()) {
+              fill(#FFEC00);
+              noStroke();
+              ellipse(x + 8, y + 8, 8, 8);
+            } 
+          }
         }   
       }
       
     }
-    // idea is to take the array of strings in lines 
-    // and somehow convert them to a 2d array of chars
-    // then assign each char to a wall tile
   
   void draw() {
-    fill(127, 0, 0);
-    //stroke(127,0, 0);
-    // rect(0, 64, width, 16);
+    Pacman pac = new Pacman();
   }
