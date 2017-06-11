@@ -45,18 +45,15 @@
             //noStroke(); (add this in later when we're done)
             rect (x1, y1, (width/ 28), (height/36));
             // for tiny dots
-           little = new Dot(false, false);
-            if (little.isLittleDot()) {
-              fill(#FFEC00);
-              noStroke();
-              ellipse(x1 + 8, y1 + 8, 8, 8);
-            } 
+          
+             
           }
         }   
       }
       
      pac = new Pacman (); 
     locPac = maze[pac.getR()][pac.getC()]; 
+    
 
   }
   
@@ -68,9 +65,22 @@
     noStroke();
     y = locPac.getR() * (width / 28) + 16;
     x = locPac.getC() * (height/ 36) + 8;
-    ellipse (x, y , 16, 16);
-
+      background (0); 
+    background(255);
+    mazeimg = loadImage("mazeimg.png");
+    image(mazeimg, 0, 0);
+    for (int r = 0; r < maze.length; r ++) { 
+      for (int c = 0; c < maze[r].length; c ++) { 
+        if (maze[r][c].isValid() && maze[r][c].hasDot()){ 
+           fill(#FFEC00);
+              noStroke();
+              ellipse(maze[r][c].xPixel(), maze[r][c].yPixel(), 8, 8);
+        } 
+    ellipse (pac.xPixel(), pac.yPixel() , 16, 16);
+  
     }
+    }
+  }
     
       void keyPressed() {
      
@@ -94,5 +104,10 @@
         locPac = maze[pac.getR()][pac.getC() - 1];
       }
   }
+    pac.moveTo(locPac);
+    if (locPac.hasDot()) { 
+      pac.setScore (pac.getScore() + 1); 
+      locPac.setDot(new Dot("empty"));
+    }
 }
   

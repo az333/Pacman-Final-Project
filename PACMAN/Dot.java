@@ -2,12 +2,23 @@ public class Dot {
 
     private boolean isFruit;
     private boolean isBig;
+    private boolean isNull;
 
     public Dot (boolean fruit, boolean big) {
 	    isFruit = fruit;
 	    isBig = big; 
+       isNull = false;
     }
 
+    public Dot (String str) { 
+      if (str.equals("empty")){ 
+        isNull = true; 
+      } 
+    }
+      public boolean isNull () { 
+        return isNull;
+      }
+        
     public boolean isFruit () {
 	    return isFruit;
     }

@@ -21,14 +21,14 @@ public class RedGhost implements Ghost {
   
   void setScatterMode() {
     scatterMode = true;
-    frigthenedMode = false;
+    //frigthenedMode = false;
     chaseMode = false;
   }
   
   void setChaseMode() {
     chaseMode = true;
-    frigthenedMode = false;
-    scatteredMode = false;
+    //frigthenedMode = false;
+    //scatteredMode = false;
   }
   
   void setfrightenedMode() {
@@ -63,7 +63,8 @@ public class RedGhost implements Ghost {
   
   public void moveToPac() {
     if (getLocation != pac.getLocation()) {
-      moveTo
+      moveTo(pac.getLocation());
+    }
   }
   
   void setCornerTile() {

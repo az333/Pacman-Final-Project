@@ -1,5 +1,7 @@
 public class Wall extends Location {
+  int r, c; 
 
+      
     public Wall (int r, int c) {
 	super (r, c);
     }
@@ -7,6 +9,10 @@ public class Wall extends Location {
     public boolean isValid () {
 	    return false;
     } 
-
-
-} 
+    
+    public boolean hasDot() { 
+      return false; 
+    }
+    
+    public void setDot (Dot d) {} 
+}
