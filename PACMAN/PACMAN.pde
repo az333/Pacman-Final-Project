@@ -1,5 +1,8 @@
   Dot little, big, fruit;
-  
+  Location locPac; 
+  Pacman pac;
+  Location maze[][]; 
+  int x, y;
   PImage mazeimg;
   
   void setup() {
@@ -13,7 +16,7 @@
     int cols = 28;
     String[] lines = loadStrings("MainMaze.txt");
     //String[] mazeLines = new String[lines.length];
-    Location[][] maze = new Location[36][28];
+    maze = new Location[36][28];
  
     for (int r = 0; r < lines.length; r ++) { 
       for (int c = 0; c < lines[0].length(); c ++) { 
@@ -25,52 +28,71 @@
         }
         }
       }
-      int x = 0, y = 0; 
+      int x1 = 0, y1 = 0; 
       int c;
       for (int r = 0; r < maze.length; r ++) {
         for (c =  0; c < maze[r].length; c ++) { 
-          y = (width / 28) * r; //+75;
-          x = (height / 36) * c; 
+          y1 = (width / 28) * r; //+75;
+          x1 = (height / 36) * c; 
           if (!maze[r][c].isValid()) { // if it's wall
             noFill();
-            rect (x, y, (width/ 28), (height/36));
+            rect (x1, y1, (width/ 28), (height/36));
           } 
           else if (maze[r][c].isValid()){ // if it's an open space
+          //System.out.println ("x: " + r + " y: " + c);
+          
             fill(#000000); 
             //noStroke(); (add this in later when we're done)
-            rect (x, y, (width/ 28), (height/36));
+            rect (x1, y1, (width/ 28), (height/36));
             // for tiny dots
            little = new Dot(false, false);
             if (little.isLittleDot()) {
               fill(#FFEC00);
               noStroke();
-              ellipse(x + 8, y + 8, 8, 8);
+              ellipse(x1 + 8, y1 + 8, 8, 8);
             } 
           }
         }   
       }
       
+     pac = new Pacman (); 
+    locPac = maze[pac.getR()][pac.getC()]; 
+
   }
   
   void draw() {
-    Pacman pac = new Pacman (); 
+    
+  
     color col = color(0, 255, 0);
     fill(col);
     noStroke();
-    int x = pac.getX() * (width / 28) + 8;
-    int y =pac.getY() * (height/ 36) + 8;
-    ellipse (x, y , 8 , 8);
-   /*  KeyEvent e = new KeyEvent();
-        int c = e.getKeyCode ();
-        if (c==KeyEvent.VK_UP) {                
-            e.y--;   
-        } else if(c==KeyEvent.VK_DOWN) {                
-            b.y++;   
-        } else if(c==KeyEvent.VK_LEFT) {                
-            b.x--;   
-        } else if(c==KeyEvent.VK_RIGHT) {                
-            b.x++;   
-        } */
-      
+    y = locPac.getR() * (width / 28) + 16;
+    x = locPac.getC() * (height/ 36) + 8;
+    ellipse (x, y , 16, 16);
+
     }
+    
+      void keyPressed() {
+     
+    if (key == CODED) {
+     // System.out.println ("x: " + pac.getR() + " y: " + pac.getY());
+      //System.out.println (maze[13][26].isValid());
+      if (keyCode == UP) {
+        if (maze[pac.getR() -1][pac.getC()].isValid()) 
+        locPac = maze[pac.getR()- 1][pac.getC()];
+      } else if (keyCode == DOWN) {
+        if (maze[pac.getR() + 1][pac.getC()].isValid()) 
+        locPac = maze[pac.getR()+1][pac.getC()];
+      } else if (keyCode == RIGHT) { 
+        if (maze[pac.getR()][pac.getC() + 1].isValid()) { 
+          //System.out.println ("true");
+        locPac = maze[pac.getR()][pac.getC() + 1];
+        }
+        //System.out.println ("false");
+      } else if (keyCode == LEFT) { 
+        if (maze[pac.getR()][pac.getC() - 1].isValid()) 
+        locPac = maze[pac.getR()][pac.getC() - 1];
+      }
+  }
+}
   
