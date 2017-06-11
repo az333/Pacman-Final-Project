@@ -1,23 +1,23 @@
-  public interface Creature {
+  abstract class  Creature {
   //public int position;
-  int r, c;
+  int r = 0, c = 0;
     
-   public void moveTo (Location l);
+   abstract void moveTo (Location l);
    
-   default int xPixel () { 
+    int xPixel () { 
       return c * 16  + 8;
     }
-    default int yPixel () { 
+     int yPixel () { 
       return r * 16 + 8; 
     }
  
-    public Location getLocation();
+    abstract Location getLocation();
     
-    public void putSelfInGrid();
+    abstract void putSelfInGrid();
     
-    public void removeSelfFromGrid();
+    abstract void removeSelfFromGrid(); 
     
-    public void beEaten();
+    abstract void beEaten();  
     
-    public String toString(); 
+
   }

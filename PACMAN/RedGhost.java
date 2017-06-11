@@ -1,4 +1,4 @@
-public class RedGhost  {
+public class RedGhost   {
   public Location targetTile, cornerTile;
   public boolean scatterMode, frightenedMode, chaseMode;
   public boolean inHouse;
@@ -58,8 +58,6 @@ public class RedGhost  {
   }
   
   public void moveTo(Location l) {}
-  public void moveToPacman() {
-
-  }
+  public void moveToPacman() {}
     
 }

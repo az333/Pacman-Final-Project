@@ -7,6 +7,7 @@ abstract class Location {
     public int xPixel  () { 
       return c * 16  + 8;
     }
+    
     public int yPixel () { 
       return r * 16 + 8; 
     }
@@ -24,6 +25,10 @@ abstract class Location {
     public void setC (int y) {
 	this.c = y;
     }
+    
+    abstract boolean hasDot();
+    
+    abstract void setDot (Dot d);
 	   
     public Location (int x, int  y) {
 	      this.r = x; 
@@ -37,4 +42,4 @@ abstract class Location {
   	return "(" + r+ "," + c+ ")" ;
     } 
 
-} 
+}

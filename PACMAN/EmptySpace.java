@@ -14,11 +14,15 @@
       }
   
   
-      public boolean hasDot () {
-  	return dot != null;
+     public boolean hasDot() {
+  	return !dot.isNull();
       }
   
       public Dot getDot () {
   	return dot;
       } 
+      
+      public void setDot(Dot d) { 
+        dot = d;
+      }
   }

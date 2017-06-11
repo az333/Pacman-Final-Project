@@ -71,7 +71,7 @@
     image(mazeimg, 0, 0);
     for (int r = 0; r < maze.length; r ++) { 
       for (int c = 0; c < maze[r].length; c ++) { 
-        if (maze[r][c].isValid()) { 
+        if (maze[r][c].isValid() && maze[r][c].hasDot()){ 
            fill(#FFEC00);
               noStroke();
               ellipse(maze[r][c].xPixel(), maze[r][c].yPixel(), 8, 8);
@@ -105,5 +105,9 @@
       }
   }
     pac.moveTo(locPac);
+    if (locPac.hasDot()) { 
+      pac.setScore (pac.getScore() + 1); 
+      locPac.setDot(new Dot("empty"));
+    }
 }
   

@@ -9,6 +9,10 @@ public class Wall extends Location {
     public boolean isValid () {
 	    return false;
     } 
-
-
-} 
+    
+    public boolean hasDot() { 
+      return false; 
+    }
+    
+    public void setDot (Dot d) {} 
+}

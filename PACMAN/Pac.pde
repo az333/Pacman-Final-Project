@@ -1,4 +1,4 @@
-class Pacman implements Creature {
+class Pacman extends Creature {
    int r, c;
    int score; 
   
@@ -18,7 +18,8 @@ class Pacman implements Creature {
   public int getC() { return c; } 
   
   public Location getLocation () {
-  return null;}
+  return null;
+}
   
    public void moveTo(Location l) {
      r = l.getR(); 
@@ -29,6 +30,12 @@ class Pacman implements Creature {
        c = 13; 
        r = 26;
     }
+    
+    public void setScore (int score) { 
+      this.score = score; 
+    } 
+    
+    public int getScore () { return score; } 
     
     public void removeSelfFromGrid() {}
     
