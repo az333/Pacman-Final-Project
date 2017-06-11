@@ -1,4 +1,4 @@
-public class RedGhost implements Ghost {
+public class RedGhost  {
   public Location targetTile, cornerTile;
   public boolean scatterMode, frightenedMode, chaseMode;
   public boolean inHouse;
@@ -17,14 +17,14 @@ public class RedGhost implements Ghost {
   
   void setScatterMode() {
     scatterMode = true;
-    frigthenedMode = false;
+    //frigthenedMode = false;
     chaseMode = false;
   }
   
   void setChaseMode() {
     chaseMode = true;
-    frigthenedMode = false;
-    scatteredMode = false;
+    //frigthenedMode = false;
+    //scatteredMode = false;
   }
   
   void setfrightenedMode() {
@@ -57,8 +57,9 @@ public class RedGhost implements Ghost {
     return null;
   }
   
+  public void moveTo(Location l) {}
   public void moveToPacman() {
-    if (
+
   }
     
 }
