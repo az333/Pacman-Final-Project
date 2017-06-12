@@ -1,17 +1,21 @@
 
-  PImage red; 
-  
 public class RedGhost extends Ghost {
   public Location targetTile, cornerTile, redLoc;
   public boolean scatterMode, frightenedMode, chaseMode;
   public boolean inHouse;
   public int dotsEaten = 0;
   public int dotLimit = 0;
-  public int r,c = 0;
+  
+   private static final int[] xShift = {-1, 0,  0 ,1};
+   private static final int[] yShift = { 0, 1, -1, 0};
+
   
   public RedGhost() {
+   
     red = loadImage("redghost.png");
+    putSelfInGrid();
     scatterMode = false;
+    //moveToPac();
     //setChaseMode();
     //moveToPac();
   }
@@ -83,8 +87,16 @@ public class RedGhost extends Ghost {
   void removeSelfFromGrid() {
   }
   
-  void putSelfInGrid() {
-    image(red, r, c);
+void putSelfInGrid() {
+
+  r = 16; 
+  c = 13;
+  //color col = color(255, 0, 0); 
+  //fill(col);
+  //ellipse(xPixel() , yPixel(), 16 , 16);
+  //System.out.println ("xpix: " + xPixel() + " ypix: " + yPixel());
+   maze[16][13].setOccupied(true);
+    
   }
   
   public int getR() { return r; } 
@@ -96,14 +108,22 @@ public class RedGhost extends Ghost {
   public void setC(int changeBy) { 
     c+=changeBy; 
 } 
+
   public void moveTo (Location l) {
-    if (l.getR() > this.getR()) {
+    Location ary[] = new Location[4]; 
+    for (int i = 0; i < xShift.length; i++) {
+      int newR = r + xShift[i]; 
+      int newC = c + yShift[i];
+    } 
+    
+
+    if (l.isValid()) { 
+      maze[r][c].setOccupied(false);
       this.setR(this.getR() + 1);
-      //this.setLocation(this.getR(), this.getC());
+      this.setC(this.getC() + 1);]
+      maze[r][c].setOccupied(true); 
+      
     }
-    if (l.getC() > this.getC()) {
-      this.setC(this.getC() + 1);
-      //this.setLocation(this.getR(), this.getC());
     }
   }
     

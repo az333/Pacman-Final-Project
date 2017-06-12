@@ -25,6 +25,7 @@ class Pacman extends Creature {
   
 
    public void moveTo(Location l) {
+     maze[r][c].setOccupied(false);
      r = l.getR(); 
      c = l.getC();
      maze[r][c].setOccupied(true);

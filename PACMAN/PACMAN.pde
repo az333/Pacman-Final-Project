@@ -1,10 +1,18 @@
   Dot little, big, fruit;
   Location locPac; 
+  Location locRed; 
+  Location locBlue; 
+  Location locOrange; 
+  Location locPink;
   Pacman pac;
+  RedGhost redd;
   Location maze[][]; 
   int x, y;
   PImage mazeimg;
   PImage pacman;
+  PImage red; 
+  long start; 
+  
   
   void setup() {
     size(448, 576);
@@ -14,6 +22,7 @@
     mazeimg = loadImage("mazeimg.png");
     image(mazeimg, 0, 0);
   
+    start = System.nanoTime() * 0.000000001; 
     int rows = 36;
     int cols = 28;
     String[] lines = loadStrings("MainMaze.txt");
@@ -56,8 +65,7 @@
     pac = new Pacman (); 
     locPac = maze[pac.getR()][pac.getC()]; 
     
-
-    ellipse (pac.xPixel(), pac.yPixel() , 16, 16);
+  ellipse (pac.xPixel(), pac.yPixel() , 16, 16);
     
        //  image (loadImage("pacman2", "gif"), pac.xPixel(), pac.yPixel());
 
@@ -87,17 +95,28 @@
    
 
         }
+        
+ 
     ellipse (pac.xPixel(), pac.yPixel() , 16, 16);
+    
+    RedGhost redd = new RedGhost();
+    locRed = maze[redd.getR()][redd.getC()]; 
+    
+    System.out.println (redd.getR()); 
+  
+   System.out.println (redd.getC()); 
+  
+    image (red,  redd.xPixel() , redd.yPixel());
+  
 
   
     }
-    RedGhost redd = new RedGhost();
-    redd.putSelfInGrid();
-    redd.moveToPac();
+   
+    
     }
     
-     ellipse ( pac.xPixel(), pac.yPixel() , 16, 16);
-  }
+    // ellipse ( pac.xPixel(), pac.yPixel() , 16, 16);
+
     
       void keyPressed() {
     
