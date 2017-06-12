@@ -120,9 +120,9 @@ public void moveTo (Location l) {
 } 
   public void moveCloser (Location l) {
     ArrayList<Location> locs = new ArrayList<Location>(); 
+    locs.clear();
        for (int i = 0; i < xShift.length; i ++) { 
          if(r + xShift[i] > 0 && r + xShift[i] < 36 && c + yShift[i] > 0 && c + yShift[i] < 28) { 
-          
          if ( maze[r + xShift[i]][c + yShift[i]].isValid()) { 
            locs.add(maze[r + xShift[i]][c + yShift[i]]); 
          } 
@@ -130,8 +130,14 @@ public void moveTo (Location l) {
        } 
        java.util.Collections.sort(locs);
        System.out.println(locs);
- 
-        moveTo(locs.get(0)); 
+   for (Location loc: locs) {
+        moveTo(loc); 
+        if (loc.equals(locPac)) { 
+          System.out.println ("game over");
+        }
+   }
+   
+   
        
       
     }
