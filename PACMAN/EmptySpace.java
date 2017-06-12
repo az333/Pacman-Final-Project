@@ -11,10 +11,11 @@
   	    super(r,c);
         dot = new Dot (false, false); 
         occupied = false; 
+        
       }
   
       public boolean isValid () {
-    	return r >= 0 && r <= 36 && c >= 0 && c <= 28;
+    	return r >= 0 && r <= 36 && c >= 0 && c <= 28 && !occupied;
       }
   
   

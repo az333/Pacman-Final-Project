@@ -1,10 +1,18 @@
   Dot little, big, fruit;
   Location locPac; 
+  Location locRed; 
+  Location locBlue; 
+  Location locOrange; 
+  Location locPink;
   Pacman pac;
+  RedGhost redd;
   Location maze[][]; 
   int x, y;
   PImage mazeimg;
   PImage pacman;
+  PImage red; 
+  long start; 
+  
   
   void setup() {
     size(448, 576);
@@ -14,6 +22,7 @@
     mazeimg = loadImage("mazeimg.png");
     image(mazeimg, 0, 0);
   
+    //start = System.nanoTime() * 0.000000001; 
     int rows = 36;
     int cols = 28;
     String[] lines = loadStrings("MainMaze.txt");
@@ -56,8 +65,14 @@
     pac = new Pacman (); 
     locPac = maze[pac.getR()][pac.getC()]; 
     
-
-    ellipse (pac.xPixel(), pac.yPixel() , 16, 16);
+  ellipse (pac.xPixel(), pac.yPixel() , 16, 16);
+  
+    redd = new RedGhost();
+    locRed = maze[redd.getR()][redd.getC()]; 
+    ellipse ( redd.xPixel() , redd.yPixel(), 16, 16);
+     redd.moveTo(maze[14][13]);
+     
+      //System.out.println("red: "+ maze[redd.getR()][redd.getC()]);
     
        //  image (loadImage("pacman2", "gif"), pac.xPixel(), pac.yPixel());
 
@@ -87,25 +102,41 @@
    
 
         }
+        
+    fill (color(0,255,0));
     ellipse (pac.xPixel(), pac.yPixel() , 16, 16);
+    fill (color(255,0,0));
+    ellipse (redd.xPixel(), redd.yPixel(), 16, 16);
+     
+ 
+    
+   // System.out.println (redd.getR()); 
+  
+   //System.out.println (redd.getC()); 
+  
+    
+  
 
   
     }
-    RedGhost redd = new RedGhost();
-    redd.putSelfInGrid();
-    redd.moveToPac();
+   
+    
     }
     
-     ellipse ( pac.xPixel(), pac.yPixel() , 16, 16);
-  }
+    // ellipse ( pac.xPixel(), pac.yPixel() , 16, 16);
+
     
       void keyPressed() {
     
     
      if (locPac.getR() == 17 && locPac.getC() == 27) { 
           pac.moveTo(maze[17][0]);
+          maze[17][0].setSmell(10);
+          maze[17][27].setSmell(9);
     } else if (locPac.getR() == 17 && locPac.getC() == 0) { 
        pac.moveTo(maze[17][27]);
+       maze[17][27].setSmell(10);   
+       maze[17][0].setSmell(9);
     } 
     
      if (locPac.hasDot()) { 
@@ -142,13 +173,15 @@
         locPac = maze[pac.getR()][pac.getC() - 1];
       }
     }
-  
+      pac.getLocation().setSmell(9);
       pac.moveTo(locPac);
+      locPac.setSmell(10);
+      redd.moveCloser(locPac);
     
    
     
 
-    //System.out.println (locPac);
+    System.out.println (locPac);
     
 }
   

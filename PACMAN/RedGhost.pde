@@ -1,17 +1,23 @@
+import java.*; 
 
-  PImage red; 
-  
 public class RedGhost extends Ghost {
   public Location targetTile, cornerTile, redLoc;
   public boolean scatterMode, frightenedMode, chaseMode;
   public boolean inHouse;
   public int dotsEaten = 0;
   public int dotLimit = 0;
-  public int r,c = 0;
+
+  
+  int[] xShift = {-1, 0,  0 ,1};
+  int[] yShift = { 0, 1, -1, 0};
+
   
   public RedGhost() {
+   
     red = loadImage("redghost.png");
+    putSelfInGrid();
     scatterMode = false;
+   
     //setChaseMode();
     //moveToPac();
   }
@@ -64,7 +70,7 @@ public class RedGhost extends Ghost {
   
   public void moveToPac() {
     if (getLocation() != pac.getLocation()) {
-      moveTo(pac.getLocation());
+      moveCloser(pac.getLocation());
     }
   }
   
@@ -83,8 +89,16 @@ public class RedGhost extends Ghost {
   void removeSelfFromGrid() {
   }
   
-  void putSelfInGrid() {
-    image(red, r, c);
+void putSelfInGrid() {
+
+  r = 16; 
+  c = 13;
+  //color col = color(255, 0, 0); 
+  //fill(col);
+  //ellipse(xPixel() , yPixel(), 16 , 16);
+  //System.out.println ("xpix: " + xPixel() + " ypix: " + yPixel());
+   maze[16][13].setOccupied(true);
+    
   }
   
   public int getR() { return r; } 
@@ -96,15 +110,30 @@ public class RedGhost extends Ghost {
   public void setC(int changeBy) { 
     c+=changeBy; 
 } 
-  public void moveTo (Location l) {
-    if (l.getR() > this.getR()) {
-      this.setR(this.getR() + 1);
-      //this.setLocation(this.getR(), this.getC());
-    }
-    if (l.getC() > this.getC()) {
-      this.setC(this.getC() + 1);
-      //this.setLocation(this.getR(), this.getC());
+
+public void moveTo (Location l) { 
+     maze[r][c].setOccupied(false);
+     r = l.getR(); 
+     c = l.getC();
+     maze[r][c].setOccupied(true);
+ 
+} 
+  public void moveCloser (Location l) {
+    ArrayList<Location> locs = new ArrayList<Location>(); 
+       for (int i = 0; i < xShift.length; i ++) { 
+         if(r + xShift[i] > 0 && r + xShift[i] < 36 && c + yShift[i] > 0 && c + yShift[i] < 28) { 
+          
+         if ( maze[r + xShift[i]][c + yShift[i]].isValid()) { 
+           locs.add(maze[r + xShift[i]][c + yShift[i]]); 
+         } 
+         }
+       } 
+       java.util.Collections.sort(locs);
+       System.out.println(locs);
+ 
+        moveTo(locs.get(0)); 
+       
+      
     }
   }
     
-}

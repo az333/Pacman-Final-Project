@@ -1,8 +1,9 @@
-abstract class Location {
+abstract class Location implements Comparable<Location> {
     
     public int  r;
     public int  c;
     public boolean occupied;
+    public int smell; 
 
     public int xPixel  () { 
       return c * 16  + 8;
@@ -39,8 +40,21 @@ abstract class Location {
 	   
     public Location (int x, int  y) {
 	      this.r = x; 
-	      this.c = y;      
+	      this.c = y;   
+        smell = 0; 
     }
+    
+    public int getSmell() { 
+      return smell; 
+    } 
+    
+    public void  setSmell(int sm) { 
+      smell = sm;
+    } 
+    
+    public int compareTo (Location other) { 
+      return  smell - other.smell;
+    } 
 
     abstract boolean isValid ();
 
