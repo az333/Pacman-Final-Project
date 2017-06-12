@@ -3,10 +3,10 @@
 
 Development Log:
 
-June 7: Finished maze (grid and image overlay)
-June 10: Implemented Pacman
-June 12: Implemented ghosts + their respective algorithms
-June 12: Implemented score counter + display function
+June 7: Finished maze (grid and image overlay) /n
+June 10: Implemented Pacman /n
+June 12: Implemented ghosts + their respective algorithms /n
+June 12: Implemented score counter + display function /n
 
 Bugs:
 TBA
@@ -28,4 +28,8 @@ How to Use:
   - If a ghost reaches you first while its in chase mode (aka the ghosts are all different colors), then you die and lose a life.
   - 3 strikes and you're out -- If you lose all 3 lives you lose!
   - If you want to replay the game you'll need to exit the window and press play again.
+
+Credits:
+We took a txt file from this website to create our maze.
+http://www.pandadeath.com/making-the-pacman-maze.html 
   
