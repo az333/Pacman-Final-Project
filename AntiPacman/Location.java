@@ -38,10 +38,9 @@ abstract class Location implements Comparable<Location> {
     
     abstract void setDot (Dot d);
 	   
-    public Location (int x, int y, Location previous) {
+    public Location (int x, int y) {
 	      this.r = x; 
 	      this.c = y;     
-        this.previous = previous;
         smell = 0; 
     }
     
