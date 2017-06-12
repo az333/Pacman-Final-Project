@@ -3,6 +3,8 @@ class Pacman extends Creature {
 
    int r, c;
    int score; 
+   int[] orientations = {1, 2, 3, 4}; 
+   // 1 = up, 2 = down, 3 = left,4 = right 
   
   
   public Pacman() {
@@ -21,6 +23,7 @@ class Pacman extends Creature {
   public int getR() { return r; } 
   public int getC() { return c; } 
   
+<<<<<<< HEAD
   
   
  
@@ -28,11 +31,23 @@ class Pacman extends Creature {
      r = l.getR(); 
      c = l.getC();
 
+=======
+
+   public void moveTo(Location l) {
+     r = l.getR(); 
+     c = l.getC();
+     maze[r][c].setOccupied(true);
+   }
+   
+   public Location getLocation () { 
+     return maze[r][c];
+>>>>>>> master
    }
  
     public void putSelfInGrid() {
        c = 13; 
        r = 26;
+       maze[26][13].setOccupied(true); 
     }
     
 

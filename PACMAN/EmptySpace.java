@@ -1,16 +1,20 @@
-  public class EmptySpace extends Location {
+   public class EmptySpace extends Location {
   
       private Dot dot;
       int r, c;
+ 
+      boolean occupied;
+
     
   
       public EmptySpace (int r, int c) {
-  	super(r,c);
-  dot = new Dot (false, false); 
+  	    super(r,c);
+        dot = new Dot (false, false); 
+        occupied = false; 
       }
   
       public boolean isValid () {
-  	return true;
+    	return r >= 0 && r <= 36 && c >= 0 && c <= 28;
       }
   
   
@@ -22,6 +26,7 @@
   	return dot;
       } 
       
+    
       public void setDot(Dot d) { 
         dot = d;
       }
