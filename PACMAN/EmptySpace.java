@@ -1,4 +1,4 @@
-  public class EmptySpace extends Location {
+   public class EmptySpace extends Location {
   
       private Dot dot;
       int r, c;
@@ -10,7 +10,7 @@
       }
   
       public boolean isValid () {
-  	return true;
+    	return r >= 0 && r <= 36 && c >= 0 && c <= 28;
       }
   
   

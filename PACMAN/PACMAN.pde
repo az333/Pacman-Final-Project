@@ -85,31 +85,55 @@
   }
     
       void keyPressed() {
-     
+    
+    
+     if (locPac.getR() == 17 && locPac.getC() == 27) { 
+          pac.moveTo(maze[17][0]);
+    } else if (locPac.getR() == 17 && locPac.getC() == 0) { 
+       pac.moveTo(maze[17][27]);
+    } 
+    
+     if (locPac.hasDot()) { 
+      pac.setScore (pac.getScore() + 1); 
+      locPac.setDot(new Dot("empty"));
+    }
+    
+    //System.out.println (locPac);
+   
+    locPac = maze[pac.getR()][pac.getC()]; 
+    
+     if (locPac.hasDot()) { 
+      pac.setScore (pac.getScore() + 1); 
+      locPac.setDot(new Dot("empty"));
+    }
+    
     if (key == CODED) {
      // System.out.println ("x: " + pac.getR() + " y: " + pac.getY());
       //System.out.println (maze[13][26].isValid());
       if (keyCode == UP) {
-        if (maze[pac.getR() -1][pac.getC()].isValid()) 
+        if (pac.getR() > 0 && maze[pac.getR() -1][pac.getC()].isValid()) 
         locPac = maze[pac.getR()- 1][pac.getC()];
       } else if (keyCode == DOWN) {
-        if (maze[pac.getR() + 1][pac.getC()].isValid()) 
+        if (pac.getR() < 35 && maze[pac.getR() + 1][pac.getC()].isValid()) 
         locPac = maze[pac.getR()+1][pac.getC()];
       } else if (keyCode == RIGHT) { 
-        if (maze[pac.getR()][pac.getC() + 1].isValid()) { 
+        if (pac.getC() < 27 && maze[pac.getR()][pac.getC() + 1].isValid()) { 
           //System.out.println ("true");
         locPac = maze[pac.getR()][pac.getC() + 1];
         }
         //System.out.println ("false");
       } else if (keyCode == LEFT) { 
-        if (maze[pac.getR()][pac.getC() - 1].isValid()) 
+        if (pac.getC() > 0 && maze[pac.getR()][pac.getC() - 1].isValid()) 
         locPac = maze[pac.getR()][pac.getC() - 1];
       }
-  }
-    pac.moveTo(locPac);
-    if (locPac.hasDot()) { 
-      pac.setScore (pac.getScore() + 1); 
-      locPac.setDot(new Dot("empty"));
     }
+  
+      pac.moveTo(locPac);
+    
+   
+    
+
+    //System.out.println (locPac);
+    
 }
   
