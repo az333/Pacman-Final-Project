@@ -66,6 +66,13 @@
     locPac = maze[pac.getR()][pac.getC()]; 
     
   ellipse (pac.xPixel(), pac.yPixel() , 16, 16);
+  
+    redd = new RedGhost();
+    locRed = maze[redd.getR()][redd.getC()]; 
+    image (red,  redd.xPixel() , redd.yPixel(), 16, 16);
+     redd.moveTo(maze[14][13]);
+     
+      //System.out.println("red: "+ maze[redd.getR()][redd.getC()]);
     
        //  image (loadImage("pacman2", "gif"), pac.xPixel(), pac.yPixel());
 
@@ -98,15 +105,15 @@
         
  
     ellipse (pac.xPixel(), pac.yPixel() , 16, 16);
+        image (red,  redd.xPixel() , redd.yPixel());
+      
+ 
     
-    RedGhost redd = new RedGhost();
-    locRed = maze[redd.getR()][redd.getC()]; 
+   // System.out.println (redd.getR()); 
+  
+   //System.out.println (redd.getC()); 
+  
     
-    System.out.println (redd.getR()); 
-  
-   System.out.println (redd.getC()); 
-  
-    image (red,  redd.xPixel() , redd.yPixel());
   
 
   
@@ -123,8 +130,12 @@
     
      if (locPac.getR() == 17 && locPac.getC() == 27) { 
           pac.moveTo(maze[17][0]);
+          maze[17][0].setSmell(10);
+          maze[17][27].setSmell(9);
     } else if (locPac.getR() == 17 && locPac.getC() == 0) { 
        pac.moveTo(maze[17][27]);
+       maze[17][27].setSmell(10);   
+       maze[17][0].setSmell(9);
     } 
     
      if (locPac.hasDot()) { 
@@ -161,13 +172,15 @@
         locPac = maze[pac.getR()][pac.getC() - 1];
       }
     }
-  
+      pac.getLocation().setSmell(9);
       pac.moveTo(locPac);
+      locPac.setSmell(10);
+      redd.moveCloser(locPac);
     
    
     
 
-    //System.out.println (locPac);
+    System.out.println (locPac);
     
 }
   

@@ -11,6 +11,7 @@
   	    super(r,c);
         dot = new Dot (false, false); 
         occupied = false; 
+        
       }
   
       public boolean isValid () {

@@ -1,3 +1,4 @@
+import java.*; 
 
 public class RedGhost extends Ghost {
   public Location targetTile, cornerTile, redLoc;
@@ -5,9 +6,10 @@ public class RedGhost extends Ghost {
   public boolean inHouse;
   public int dotsEaten = 0;
   public int dotLimit = 0;
+
   
-  // private static final int[] xShift = {-1, 0,  0 ,1};
-  // private static final int[] yShift = { 0, 1, -1, 0};
+  int[] xShift = {-1, 0,  0 ,1};
+  int[] yShift = { 0, 1, -1, 0};
 
   
   public RedGhost() {
@@ -15,7 +17,7 @@ public class RedGhost extends Ghost {
     red = loadImage("redghost.png");
     putSelfInGrid();
     scatterMode = false;
-    moveToPac();
+   
     //setChaseMode();
     //moveToPac();
   }
@@ -117,27 +119,20 @@ public void moveTo (Location l) {
  
 } 
   public void moveCloser (Location l) {
-    
-  int newR, newC;
-      newR = l.getR(); 
-        newC = l.getC();
-    
-      maze[r][c].setOccupied(false);
-      if (l.getR() > getR()) {
-        newR = getR() + 1;
-      } else if (l.getR() < getR()) { 
-        newR = getR() + 1; 
-      } else if (l.getC() > getC()) { 
-        newC = getC() + 1; 
-      } else if (l.getC() < getC()) { 
-        newC = getC() - 1; 
-      } 
-    
+    ArrayList<Location> locs = new ArrayList<Location>(); 
+       for (int i = 0; i < xShift.length; i ++) { 
+         if(r + xShift[i] > 0 && r + xShift[i] < 36 && c + yShift[i] > 0 && c + yShift[i] < 28) { 
+          
+         if ( maze[r + xShift[i]][c + yShift[i]].isValid()) { 
+           locs.add(maze[r + xShift[i]][c + yShift[i]]); 
+         } 
+         }
+       } 
+       java.util.Collections.sort(locs);
+ 
+        moveTo(locs.get(0)); 
+       
       
-      if (newR > 0 && newR < 36 && newC > 0 && newC < 28 && maze[newR][newC].isValid()) 
-      moveTo(maze[newR][newC]);
-      
-    
     }
   }
     
