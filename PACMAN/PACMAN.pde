@@ -77,10 +77,13 @@
            fill(#FFEC00);
               noStroke();
               ellipse(maze[r][c].xPixel(), maze[r][c].yPixel(), 8, 8);
-        } 
+        }
     ellipse (pac.xPixel(), pac.yPixel() , 16, 16);
   
     }
+    RedGhost redd = new RedGhost();
+    redd.putSelfInGrid();
+    redd.moveToPac();
     }
   }
     
