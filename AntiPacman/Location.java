@@ -93,7 +93,7 @@ int[] yShift = { 0, 1, -1, 0};
        
         smell = 0; 
     }
-    
+    abstract void setDot(Dot d);
     public int getSmell() { 
       return smell; 
     } 
@@ -106,6 +106,12 @@ int[] yShift = { 0, 1, -1, 0};
      
      return avgDist - other.avgDist;
    }
+
+
+public boolean equals (Location other) { 
+  return r == other.r && c == other.c;
+}
+  
 
  public String toString () { 
 
