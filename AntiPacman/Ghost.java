@@ -1,4 +1,6 @@
-abstract class  Ghost extends Creature {
+import java.util.*;
+
+abstract class Ghost extends Creature {
   //public Location targetTile, cornerTile;
   //public boolean scatterMode, frightenedMode, chaseMode;
   //public boolean inHouse;
@@ -11,5 +13,6 @@ abstract class  Ghost extends Creature {
   abstract void setTargetTile();
   abstract boolean chase();
   abstract void setCornerTile();
+  
   
 }

@@ -1,4 +1,4 @@
-import java.*; 
+import java.util.*; 
 
 public class RedGhost extends Ghost {
   public Location targetTile, cornerTile, redLoc;
@@ -6,6 +6,7 @@ public class RedGhost extends Ghost {
   public boolean inHouse;
   public int dotsEaten = 0;
   public int dotLimit = 0;
+  String colory; 
 
   
   int[] xShift = {-1, 0,  0 ,1};
@@ -21,6 +22,14 @@ public class RedGhost extends Ghost {
     //setChaseMode();
     //moveToPac();
   }
+  
+  public RedGhost(String col) { 
+     red = loadImage("redghost.png");
+    putSelfInGrid();
+    scatterMode = false;
+    colory = col; 
+  } 
+    
   
   public boolean scatter() {
     return scatterMode;
@@ -105,10 +114,10 @@ void putSelfInGrid() {
   public int getC() { return c; } 
   
   public void setR(int changeBy) { 
-    r+=changeBy;
+    r = changeBy;
 } 
   public void setC(int changeBy) { 
-    c+=changeBy; 
+    c = changeBy; 
 } 
 
 public void moveTo (Location l) { 
@@ -136,10 +145,26 @@ public void moveTo (Location l) {
           System.out.println ("game over");
         }
    }
-   
-   
-       
-      
     }
+    
+    void set( RedGhost ghost) { 
+       r = ghost.getR(); 
+       c = ghost.getC(); 
+       colory = ghost.colory; 
+    } 
+    
+    String toString() { 
+      return colory; 
+    } 
+   void moveRandom() { 
+    Random gen = new Random(); 
+    r = gen.nextInt(36); 
+    c = gen.nextInt(28);
+    while (!maze[r][c].isValid()) { 
+       r = gen.nextInt(36); 
+       c = gen.nextInt(28);    
+    } 
+    moveTo(maze[r][c]);
+  }
   }
     
