@@ -1,13 +1,17 @@
+  import java.util.*;
+  
   Dot little, big, fruit;
   Location locPac; 
   Location locRed; 
   Location locBlue; 
   Location locOrange; 
   Location locPink;
+  Location locExit;
   Pacman pac;
   RedGhost redd;
   RedGhost blue; 
   RedGhost pink; 
+  RedGhost exit;
   RedGhost orange; 
   
   Location maze[][]; 
@@ -92,7 +96,10 @@
     orange.moveTo(maze[18][15]);
      ellipse (orange.xPixel() , orange.yPixel(), 16, 16);
      
- 
+     exit = new RedGhost();
+     locExit = maze[exit.getR()][exit.getC()];
+     exit.moveTo(maze[int(random(0.0, 28.0))][int(random(0.0, 36.0))]);
+     ellipse(exit.xPixel() , exit.yPixel(), 16, 16);
      
      
       //System.out.println("red: "+ maze[redd.getR()][redd.getC()]);
@@ -103,8 +110,6 @@
   }
   
   void draw() {
-    
-  
     color col = color(0, 255, 0);
     fill(col);
     noStroke();
@@ -122,8 +127,6 @@
               ellipse(maze[r][c].xPixel(), maze[r][c].yPixel(), 8, 8);
 
         } 
-   
-
         }
         
     fill (color(0,255,0));
@@ -136,6 +139,8 @@
     ellipse (blue.xPixel(), blue.yPixel(), 16, 16);
     fill (#FFA500) ;
     ellipse (orange.xPixel(), orange.yPixel(), 16, 16);
+    fill(#ffffff);
+    ellipse (exit.xPixel(), exit.yPixel(), 16, 16);
    
    // System.out.println (redd.getR()); 
   
@@ -151,7 +156,55 @@
     }
     
     // ellipse ( pac.xPixel(), pac.yPixel() , 16, 16);
+    
+public void solve() {
+  ArrayList
+  QueueFrontier front = new QueueFrontier();
+  // throw exception if style >= 4??
 
+  while (front.size() > 0) {
+      Location current = front.next();
+      // if not done, set the spots u searched to a .
+      maze.set(current.getR(), current.getC(), '.'); // i think you have to add another redghost object instead
+      // adding frontiers
+    for (Location neighbor:getValidNeighbors(current, style == 3)) {
+        front.add(neighbor);
+        //System.out.println("front added");
+        maze.set(neighbor.getR(), neighbor.getC(), '?'); // ? = frontier
+    } 
+
+    //System.out.println("xcor: " + current.getR() + " ycor: " + current.getC());
+    //System.out.println(front.toString());
+  }
+    } 
+    
+    public ArrayList<Location> getValidNeighbors(Location l) {
+  ArrayList<Location> neighbors = new ArrayList<Location>();
+  if (maze.get(l.getR() + 1, l.getC()) == ' ') {
+      neighbors.add(new Location(l.getR() + 1, l.getC(), l, distToStart(l.getR() + 1, l.getC()), distToGoal(l.getR() + 1, l.getC())));
+  }
+  if (maze.get(l.getR(), l.getC() + 1) == ' ') {
+      neighbors.add(new Location(l.getR(), l.getC() + 1, l, distToStart(l.getR(), l.getC() + 1), distToGoal(l.getR(), l.getC() + 1)));
+  }
+  if (maze.get(l.getR() - 1, l.getC()) == ' ') {
+      neighbors.add(new Location(l.getR() - 1, l.getC(), l, distToStart(l.getR() - 1, l.getC()), distToGoal(l.getR() - 1, l.getC())));
+  }
+  if (maze.get(l.getR(), l.getC() - 1) == ' ') {
+      neighbors.add(new Location(l.getR(), l.getC() - 1, l, distToStart(l.getR(), l.getC() - 1), distToGoal(l.getR(), l.getC() - 1)));
+  }
+  return neighbors;
+    }
+
+    private int distToStart(int r, int c) {
+  Location start = maze.getStart();
+  return Math.abs(pacLoc.getR() - r) + Math.abs(pacLoc.getC() - c);
+    }
+
+    private int distToGoal(int r, int c) {
+  Location end = maze.getEnd();
+  return Math.abs(locExit.getR() - pacLoc.getR()) + Math.abs(locExit.getC() - pacLoc.getC());
+    }
+    
     
       void keyPressed() {
     
