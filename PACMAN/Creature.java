@@ -12,11 +12,7 @@
       return r * 16 + 8; 
     }
  
-<<<<<<< HEAD
- 
-=======
-    
->>>>>>> master
+
     abstract void putSelfInGrid();
     
     abstract Location getLocation(); 

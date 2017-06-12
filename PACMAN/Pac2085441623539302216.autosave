@@ -24,6 +24,7 @@ class Pacman extends Creature {
   public int getC() { return c; } 
   
 
+
    public void moveTo(Location l) {
      r = l.getR(); 
      c = l.getC();
