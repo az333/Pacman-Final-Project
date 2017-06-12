@@ -2,7 +2,7 @@ abstract class Location {
     
     public int  r;
     public int  c;
-
+    public boolean occupied;
 
     public int xPixel  () { 
       return c * 16  + 8;
@@ -19,6 +19,9 @@ abstract class Location {
 	return c ;
     }
    
+     public void setOccupied (boolean o) { 
+        occupied = o; 
+      }
     public void setR (int newX) {
 	r = newX ;
     }
@@ -27,6 +30,10 @@ abstract class Location {
     }
     
     abstract boolean hasDot();
+    
+    public boolean isOccupied () { 
+      return occupied; 
+    } 
     
     abstract void setDot (Dot d);
 	   

@@ -14,5 +14,9 @@ public class Wall extends Location {
       return false; 
     }
     
+    public boolean isOccupied() { 
+      return false;
+    }
+    
     public void setDot (Dot d) {} 
 }

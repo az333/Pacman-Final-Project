@@ -23,6 +23,7 @@ class Pacman extends Creature {
    public void moveTo(Location l) {
      r = l.getR(); 
      c = l.getC();
+     maze[r][c].setOccupied(true);
    }
    
    public Location getLocation () { 
@@ -32,6 +33,7 @@ class Pacman extends Creature {
     public void putSelfInGrid() {
        c = 13; 
        r = 26;
+       maze[26][13].setOccupied(true); 
     }
     
     public void setScore (int score) { 

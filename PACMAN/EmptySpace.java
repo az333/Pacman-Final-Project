@@ -2,11 +2,15 @@
   
       private Dot dot;
       int r, c;
+ 
+      boolean occupied;
+
     
   
       public EmptySpace (int r, int c) {
-  	super(r,c);
-  dot = new Dot (false, false); 
+  	    super(r,c);
+        dot = new Dot (false, false); 
+        occupied = false; 
       }
   
       public boolean isValid () {
@@ -22,6 +26,7 @@
   	return dot;
       } 
       
+    
       public void setDot(Dot d) { 
         dot = d;
       }

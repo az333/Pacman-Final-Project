@@ -4,7 +4,7 @@
   Location maze[][]; 
   int x, y;
   PImage mazeimg;
-
+  PImage pacman;
   
   void setup() {
     size(448, 576);
@@ -53,10 +53,15 @@
         }   
       }
       
-     pac = new Pacman (); 
+    pac = new Pacman (); 
     locPac = maze[pac.getR()][pac.getC()]; 
     
 
+    ellipse (pac.xPixel(), pac.yPixel() , 16, 16);
+    
+       //  image (loadImage("pacman2", "gif"), pac.xPixel(), pac.yPixel());
+
+  
   }
   
   void draw() {
@@ -78,10 +83,12 @@
               noStroke();
               ellipse(maze[r][c].xPixel(), maze[r][c].yPixel(), 8, 8);
         } 
-    ellipse (pac.xPixel(), pac.yPixel() , 16, 16);
+   
   
     }
     }
+    
+     ellipse ( pac.xPixel(), pac.yPixel() , 16, 16);
   }
     
       void keyPressed() {
