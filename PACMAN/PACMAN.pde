@@ -69,7 +69,7 @@
   
     redd = new RedGhost();
     locRed = maze[redd.getR()][redd.getC()]; 
-    image (red,  redd.xPixel() , redd.yPixel(), 16, 16);
+    ellipse ( redd.xPixel() , redd.yPixel(), 16, 16);
      redd.moveTo(maze[14][13]);
      
       //System.out.println("red: "+ maze[redd.getR()][redd.getC()]);
@@ -103,10 +103,11 @@
 
         }
         
- 
+    fill (color(0,255,0));
     ellipse (pac.xPixel(), pac.yPixel() , 16, 16);
-        image (red,  redd.xPixel() , redd.yPixel());
-      
+    fill (color(255,0,0));
+    ellipse (redd.xPixel(), redd.yPixel(), 16, 16);
+     
  
     
    // System.out.println (redd.getR()); 

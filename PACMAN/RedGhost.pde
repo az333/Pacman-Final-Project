@@ -129,6 +129,7 @@ public void moveTo (Location l) {
          }
        } 
        java.util.Collections.sort(locs);
+       System.out.println(locs);
  
         moveTo(locs.get(0)); 
        
