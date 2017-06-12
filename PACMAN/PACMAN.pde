@@ -22,7 +22,7 @@
     mazeimg = loadImage("mazeimg.png");
     image(mazeimg, 0, 0);
   
-    start = System.nanoTime() * 0.000000001; 
+    //start = System.nanoTime() * 0.000000001; 
     int rows = 36;
     int cols = 28;
     String[] lines = loadStrings("MainMaze.txt");

@@ -6,8 +6,8 @@ public class RedGhost extends Ghost {
   public int dotsEaten = 0;
   public int dotLimit = 0;
   
-   private static final int[] xShift = {-1, 0,  0 ,1};
-   private static final int[] yShift = { 0, 1, -1, 0};
+  // private static final int[] xShift = {-1, 0,  0 ,1};
+  // private static final int[] yShift = { 0, 1, -1, 0};
 
   
   public RedGhost() {
@@ -15,7 +15,7 @@ public class RedGhost extends Ghost {
     red = loadImage("redghost.png");
     putSelfInGrid();
     scatterMode = false;
-    //moveToPac();
+    moveToPac();
     //setChaseMode();
     //moveToPac();
   }
@@ -68,7 +68,7 @@ public class RedGhost extends Ghost {
   
   public void moveToPac() {
     if (getLocation() != pac.getLocation()) {
-      moveTo(pac.getLocation());
+      moveCloser(pac.getLocation());
     }
   }
   
@@ -109,22 +109,35 @@ void putSelfInGrid() {
     c+=changeBy; 
 } 
 
-  public void moveTo (Location l) {
-    Location ary[] = new Location[4]; 
-    for (int i = 0; i < xShift.length; i++) {
-      int newR = r + xShift[i]; 
-      int newC = c + yShift[i];
-    } 
+public void moveTo (Location l) { 
+     maze[r][c].setOccupied(false);
+     r = l.getR(); 
+     c = l.getC();
+     maze[r][c].setOccupied(true);
+ 
+} 
+  public void moveCloser (Location l) {
     
-
-    if (l.isValid()) { 
+  int newR, newC;
+      newR = l.getR(); 
+        newC = l.getC();
+    
       maze[r][c].setOccupied(false);
-      this.setR(this.getR() + 1);
-      this.setC(this.getC() + 1);]
-      maze[r][c].setOccupied(true); 
+      if (l.getR() > getR()) {
+        newR = getR() + 1;
+      } else if (l.getR() < getR()) { 
+        newR = getR() + 1; 
+      } else if (l.getC() > getC()) { 
+        newC = getC() + 1; 
+      } else if (l.getC() < getC()) { 
+        newC = getC() - 1; 
+      } 
+    
       
-    }
+      if (newR > 0 && newR < 36 && newC > 0 && newC < 28 && maze[newR][newC].isValid()) 
+      moveTo(maze[newR][newC]);
+      
+    
     }
   }
     
-}
