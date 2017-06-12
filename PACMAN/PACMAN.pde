@@ -173,7 +173,13 @@
         locPac = maze[pac.getR()][pac.getC() - 1];
       }
     }
-      pac.getLocation().setSmell(9);
+      //pac.getLocation().setSmell(9);
+      for (int row = 0; row < maze.length; row ++) {
+        for (int col = 0; col < maze[row].length; col ++) { 
+          if (maze[row][col].getSmell() > 0) { 
+            maze[row][col].setSmell(maze[row][col].getSmell() - 1);
+          }
+        }}  
       pac.moveTo(locPac);
       locPac.setSmell(10);
       redd.moveCloser(locPac);
