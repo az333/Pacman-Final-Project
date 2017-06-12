@@ -6,12 +6,16 @@
   Location locPink;
   Pacman pac;
   RedGhost redd;
+  RedGhost blue; 
+  RedGhost pink; 
+  RedGhost orange; 
+  
   Location maze[][]; 
   int x, y;
   PImage mazeimg;
   PImage pacman;
   PImage red; 
-  long start; 
+  float start; 
   
   
   void setup() {
@@ -22,7 +26,7 @@
     mazeimg = loadImage("mazeimg.png");
     image(mazeimg, 0, 0);
   
-    //start = System.nanoTime() * 0.000000001; 
+    start = System.nanoTime() * 0.000000001; 
     int rows = 36;
     int cols = 28;
     String[] lines = loadStrings("MainMaze.txt");
@@ -64,13 +68,32 @@
       
     pac = new Pacman (); 
     locPac = maze[pac.getR()][pac.getC()]; 
-    
-  ellipse (pac.xPixel(), pac.yPixel() , 16, 16);
+    ellipse (pac.xPixel(), pac.yPixel() , 16, 16);
   
     redd = new RedGhost();
     locRed = maze[redd.getR()][redd.getC()]; 
+    redd.moveTo(maze[16][12]);
     ellipse ( redd.xPixel() , redd.yPixel(), 16, 16);
-     redd.moveTo(maze[14][13]);
+    
+     
+    pink = new RedGhost();
+    locPink = maze[pink.getR()][pink.getC()]; 
+    pink.moveTo(maze[16][15]);
+     ellipse (pink.xPixel() , pink.yPixel(), 16, 16);
+     
+    blue = new RedGhost();
+    locBlue = maze[blue.getR()][blue.getC()]; 
+    blue.moveTo(maze[18][12]);
+    ellipse ( blue.xPixel() , blue.yPixel(), 16, 16);
+    
+     
+    orange = new RedGhost();
+    locOrange = maze[orange.getR()][orange.getC()]; 
+    orange.moveTo(maze[18][15]);
+     ellipse (orange.xPixel() , orange.yPixel(), 16, 16);
+     
+ 
+     
      
       //System.out.println("red: "+ maze[redd.getR()][redd.getC()]);
     
@@ -107,9 +130,13 @@
     ellipse (pac.xPixel(), pac.yPixel() , 16, 16);
     fill (color(255,0,0));
     ellipse (redd.xPixel(), redd.yPixel(), 16, 16);
-     
- 
-    
+    fill (#FFC0CB) ;
+    ellipse (pink.xPixel(), pink.yPixel(), 16, 16);
+    fill(#0000FF);
+    ellipse (blue.xPixel(), blue.yPixel(), 16, 16);
+    fill (#FFA500) ;
+    ellipse (orange.xPixel(), orange.yPixel(), 16, 16);
+   
    // System.out.println (redd.getR()); 
   
    //System.out.println (redd.getC()); 
