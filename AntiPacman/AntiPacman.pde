@@ -6,12 +6,10 @@
   Location locBlue; 
   Location locOrange; 
   Location locPink;
-  Location locExit;
   Pacman pac;
   RedGhost redd;
   RedGhost blue; 
   RedGhost pink; 
-  RedGhost exit;
   RedGhost orange; 
   RedGhost n ;
   Location locN;
@@ -29,6 +27,13 @@
 int[] xShift = {-1, 0,  0 ,1};
 int[] yShift = { 0, 1, -1, 0};
 
+int rectX, rectY;      // Position of square button
+int rectSize = 10; 
+color rectHighlight;
+color currentColor;
+boolean rectOver = false;
+color rectColor;
+
   void setup() {
     size(448, 576);
     //size(448, 726);
@@ -36,6 +41,11 @@ int[] yShift = { 0, 1, -1, 0};
     background(255);
     mazeimg = loadImage("mazeimg.png");
     image(mazeimg, 0, 0);
+    
+  rectColor = color(0);
+  rectHighlight = color(51);
+  rectX = 0;
+  rectY = 0;
 
 
     //////////System.out.println(start);
@@ -129,12 +139,25 @@ int[] yShift = { 0, 1, -1, 0};
          called = false;
     } 
     
+    update(mouseX, mouseY);
+    if (rectOver) {
+    fill(rectHighlight);
+     } else {
+    fill(rectColor);
+  }
+  stroke(255);
+  rect(rectX, rectY, rectSize, rectSize);
+  
+
     color col = color(0, 255, 0);
     fill(col);
     noStroke();
     y = locPac.getR() * (width / 28) + 16;
     x = locPac.getC() * (height/ 36) + 8;
       background (0); 
+      
+     
+
     background(255);
     mazeimg = loadImage("mazeimg.png");
     image(mazeimg, 0, 0);
@@ -148,6 +171,11 @@ int[] yShift = { 0, 1, -1, 0};
         } 
         }
         
+        
+         rectColor = color(#000000 );
+  rectHighlight = color(51);
+  rectX = 0;
+  rectY = 0;
     fill (color(0,255,0));
     locPac = maze[pac.getR()][pac.getC()]; 
     ellipse (pac.xPixel() , pac.yPixel() , 16, 16);
@@ -191,6 +219,29 @@ int[] yShift = { 0, 1, -1, 0};
  
         }
             
+void update(int x, int y) {
+  if ( overRect(rectX, rectY, rectSize, rectSize) ) {
+    rectOver = true;
+  } else {
+    rectOver = false;
+  }
+}
+
+void mousePressed() {
+
+  if (rectOver) {
+    draw(); 
+  }
+}
+
+boolean overRect(int x, int y, int width, int height)  {
+  if (mouseX >= x && mouseX <= x+width && 
+      mouseY >= y && mouseY <= y+height) {
+    return true;
+  } else {
+    return false;
+  }
+}
 
     
       void keyPressed() {
@@ -270,7 +321,7 @@ int[] yShift = { 0, 1, -1, 0};
         
         for (Location n: neighbors) {
             if (locPac.hasDot()) { 
-      pac.setScore (pac.getScore() + 1); 
+      
       locPac.setDot(new Dot("empty")); 
          pac.moveTo(n);
         }
@@ -278,6 +329,7 @@ int[] yShift = { 0, 1, -1, 0};
 
    
         n.moveTo(maze[locN.getR()][locN.getC()]);
+        pac.setScore (pac.getScore() + 1);
      
     
         }
