@@ -1,11 +1,11 @@
 import java.util.*; 
 
 public class RedGhost extends Ghost {
-  public Location targetTile, cornerTile, redLoc;
-  public boolean scatterMode, frightenedMode, chaseMode;
-  public boolean inHouse;
-  public int dotsEaten = 0;
-  public int dotLimit = 0;
+   Location targetTile, cornerTile, redLoc;
+   boolean scatterMode, frightenedMode, chaseMode;
+   boolean inHouse;
+   int dotsEaten = 0;
+   int dotLimit = 0;
   String colory; 
 
 

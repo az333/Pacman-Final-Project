@@ -17,6 +17,7 @@ int[] yShift = { 0, 1, -1, 0};
       return c * 16  + 8;
     }
     
+ 
     void setLee (int num) { 
       leeValue = num; 
     } 
