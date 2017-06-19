@@ -7,7 +7,7 @@ abstract class Location implements Comparable<Location> {
     public int  c;
     public boolean occupied;
     public int smell; 
-    float avgDist; 
+    int avgDist; 
     int leeValue;
     
       
@@ -24,10 +24,6 @@ int[] yShift = { 0, 1, -1, 0};
       leeValue = num; 
     } 
     
-    boolean hasLee () { 
-      return leeValue != -1;
-    } 
-    
    abstract boolean isValid();
     
     int getLee () { 
@@ -40,46 +36,50 @@ int[] yShift = { 0, 1, -1, 0};
     queue.add(this); 
     
     //ArrayList<Location> explored = new ArrayList<Location>();
-Location current = this; 
+
+    int i = 0;
     while(!queue.isEmpty()){
- 
-       current = queue.removeFirst();
-     //  System.out.println (current.getLee());
-            if(!(current.getR() == g.getR() && current.getC() == g.getC())) {
-                    for (Location neigh: current.getNeighbors()) { 
-                      if (!neigh.hasLee()) { 
-                        
-                        neigh.setLee(current.getLee() + 1);
-                        queue.add(neigh); 
-                    }
-                  
+      Location current = queue.pollFirst();
+            if(current.equals(g)) {
+                return g.getLee();
+            }
+            else{
+                    queue.addAll(current.getNeighbors());
+                    for (Location neighbor: current.getNeighbors()) { 
+                      neighbor.setLee(current.getLee() + 1);
             }
            
-        } else { 
-          break; 
         }
-        
-    }
-   int temp = current.getLee(); 
-   resetLee();
-    //System.out.println(current.getLee());
-   return temp;
-   
-
+    } 
+    return g.getLee(); 
+    
     //return Math.abs(getR() - g.getR()) + Math.abs(getC() - g.getC());
   
     }
 
 
-abstract void resetLee();
-
-abstract ArrayList<Location> getNeighbors();
-
-    void setAvgDist(float num) { 
+   ArrayList<Location> getNeighbors() { 
+            
+     ArrayList<Location> neighbors = new ArrayList<Location> (); 
+     for (int i = 0; i < xShift.length; i ++) { 
+       if (new Location(r + xShift[i], c + yShift[i]).isValid()) { 
+         Location temp = maze[r + xShift[i]][c + yShift[i]];
+         neighbors.add(temp);
+         
+       } 
+       
+       
+     } 
+     
+     
+   }
+    
+   
+    void setAvgDist(int num) { 
       avgDist = num;
     } 
     
-    float getAvgDist() { return avgDist; } 
+    int getAvgDist() { return avgDist; } 
 
     public int yPixel () { 
         
@@ -114,34 +114,33 @@ abstract ArrayList<Location> getNeighbors();
     public Location (int x, int y) {
         this.r = x; 
         this.c = y;     
-        leeValue = -1;
+       
+        smell = 0; 
     }
-    
    abstract void setDot(Dot d); 
    
-   
+    public int getSmell() { 
+      return smell; 
+    }  
+    
+    public void  setSmell(int sm) { 
+      smell = sm;
+    } 
  
    public  int compareTo (Location other) { 
      
-     System.out.println(Math.round(avgDist - other.avgDist));
-     
-    return Math.round(avgDist - other.avgDist); 
+     return avgDist - other.avgDist;
    }
 
+
+public boolean equals (Location other) { 
+  return r == other.r && c == other.c;
+}
+  
 
  public String toString () { 
 
     return "(" + r + "," +  c+ ")" ;
     } 
 
-}
-
-
-class LocCompare implements Comparator<Location> {
-
-    @Override
-    public int compare(Location o1, Location o2) {
-        // write comparison logic here like below , it's just a sample
-      return Math.round( o2.getAvgDist() - o1.getAvgDist()) ; 
-    }
 }

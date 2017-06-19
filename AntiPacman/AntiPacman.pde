@@ -15,7 +15,8 @@
   Location locN;
   
 
-  public Location[][] maze;
+
+ public Location[][] maze;
   int x, y;
   PImage mazeimg;
   PImage pacman;
@@ -124,6 +125,7 @@ color rectColor;
   
   }
   
+
   void draw() {
    
     //////////System.out.println (n);
@@ -261,10 +263,19 @@ boolean overRect(int x, int y, int width, int height)  {
         n = blue;
       } 
  
-  
+
+    
       locN = maze[n.getR()][n.getC()];
       ////////System.out.println(locN);
     
+      
+  if (locN.getR() == 17 && locN.getC() == 27) { 
+          n.moveTo(maze[17][0]);
+    
+    } else if (locN.getR() == 17 && locN.getC() == 0) { 
+       n.moveTo(maze[17][27]);
+       
+    } 
       //////////System.out.println(n.getLocation());
         if (key == CODED) {
 
@@ -292,40 +303,68 @@ boolean overRect(int x, int y, int width, int height)  {
             //////////System.out.println(n.getLocation());
       }
       
-           ArrayList<Location> neighbors = new ArrayList<Location>();
-     neighbors.clear();
-     
-      for (int i = 0; i < xShift.length; i ++) { 
-         if(pac.getR() + xShift[i] > 0 && pac.getR() + xShift[i] < 36 && pac.getC() + yShift[i] > 0 && pac.getC() + yShift[i] < 28) { 
-         if ( maze[pac.getR() + xShift[i]][pac.getC() + yShift[i]].isValid()) { 
-           neighbors.add(maze[pac.getR() + xShift[i]][pac.getC() + yShift[i]]); 
-         } 
-         }
-      }
+     ArrayList<Location> neighbors = pac.getLocation().getNeighbors();
+          
     
+//System.out.println ("before: " + neighbors);
 
-      for (Location n: neighbors) {
+      for (int i = 0; i < neighbors.size(); i ++ ) {
+        Location locat = neighbors.get(i);
+ // System.out.println( "why");
+         //int dist= locat.computeShortestPath(n.getLocation()); 
+         int reddist= locat.computeShortestPath(redd.getLocation());
+         //System.out.println("red: " + reddist);
+         int pinkdist = locat.computeShortestPath(pink.getLocation()); 
+         //System.out.println("pink" + pinkdist);
+         int bluedist = locat.computeShortestPath(blue.getLocation());
+         //System.out.println("blue: " + bluedist);
+         int orangedist = locat.computeShortestPath(orange.getLocation()); 
+         //System.out.println("orange: " + orangedist);
         
-         int reddist= n.computeShortestPath(redd.getLocation()); 
-         int pinkdist = n.computeShortestPath(pink.getLocation()); 
-         int bluedist = n.computeShortestPath(blue.getLocation());
-         int orangedist = n.computeShortestPath(orange.getLocation()); 
+       locat.setAvgDist((reddist + pinkdist + bluedist +orangedist)/5.0);
+        //locat.setAvgDist(dist);
+        neighbors.set(i, locat);
         
-        n.setAvgDist((reddist + pinkdist + bluedist +orangedist)/5);
+        //System.out.println ("avgDistneigh: " + neighbors.get(i).getAvgDist());
+        //System.out.println ("avgDistlocat: " + locat.getAvgDist());
       }
       
-       java.util.Collections.sort(neighbors);
+       
+    
+       Collections.sort(neighbors, new LocCompare());
+       //System.out.println ("after: " + neighbors);
+       //System.out.println();
+    
        
        //for (Location local: neighbors) { 
-         Location target = neighbors.get(0);
+        // Location target = neighbors.get(0);
         
-        for (Location n: neighbors) {
-            if (locPac.hasDot()) { 
+        Location temp = neighbors.get(0);
+        
       
-      locPac.setDot(new Dot("empty")); 
-         pac.moveTo(n);
-        }
-        }
+       // for (Location a: neighbors) {
+         // System.out.println("loc: "  + a);
+         //System.out.println ("previous: " + pac.getPrev()); 
+         //System.out.println ("nextbefore: " + temp);
+         if (pac.getPrev().getR() == temp.getR() && pac.getPrev().getC() == temp.getC() && neighbors.size() > 1) { 
+           temp = neighbors.get(1); 
+         } 
+         
+        //System.out.println ("nextafter: " + temp);
+        //System.out.println();
+         
+         Location old = pac.getLocation(); 
+         pac.moveTo(temp);
+         
+         pac.setPrev (old);
+         
+           
+         //System.out.println("pac: " + pac.getLocation());
+          if (temp.hasDot()) { 
+          temp.setDot(new Dot("empty"));
+          }
+        
+        
 
    
         n.moveTo(maze[locN.getR()][locN.getC()]);

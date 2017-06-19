@@ -3,12 +3,21 @@ class Pacman extends Creature {
 
    int score; 
    int[] orientations = {1, 2, 3, 4}; 
+   Location previous; 
    // 1 = up, 2 = down, 3 = left,4 = right 
   
   
   public Pacman() {
     putSelfInGrid(); 
+
   }
+  
+  public void setPrev (Location loc) { 
+    previous = loc; 
+  } 
+  
+  public Location getPrev() { return previous; 
+  } 
   
 
      public int xPixel () { 
@@ -38,6 +47,7 @@ class Pacman extends Creature {
        c = 13; 
        r = 26;
        maze[26][13].setOccupied(true); 
+       previous = maze[26][13];
     }
     
 
