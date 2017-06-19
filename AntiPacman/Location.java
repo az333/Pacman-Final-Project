@@ -64,20 +64,20 @@ int[] yShift = { 0, 1, -1, 0};
     }
     
     public int getR() {
-	return r ;
+  return r ;
     }
     public int getC () {
-	return c ;
+  return c ;
     }
    
      public void setOccupied (boolean o) { 
         occupied = o; 
       }
     public void setR (int newX) {
-	r = newX ;
+  r = newX ;
     }
     public void setC (int y) {
-	this.c = y;
+  this.c = y;
     }
     
 
@@ -86,17 +86,14 @@ int[] yShift = { 0, 1, -1, 0};
       return occupied; 
     } 
 
-	   
+     
     public Location (int x, int y) {
-	      this.r = x; 
-	      this.c = y;     
-<<<<<<< HEAD
-=======
+        this.r = x; 
+        this.c = y;     
        
->>>>>>> 737355c003c76040c1dc11992b363ae0921c10b1
         smell = 0; 
     }
-    
+    abstract void setDot(Dot d);
     public int getSmell() { 
       return smell; 
     } 
@@ -110,9 +107,15 @@ int[] yShift = { 0, 1, -1, 0};
      return avgDist - other.avgDist;
    }
 
+
+public boolean equals (Location other) { 
+  return r == other.r && c == other.c;
+}
+  
+
  public String toString () { 
 
-  	return "(" + r + "," +  c+ ")" ;
+    return "(" + r + "," +  c+ ")" ;
     } 
 
 }
