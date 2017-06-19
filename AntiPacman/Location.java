@@ -1,14 +1,64 @@
+import java.util.*;
+
 abstract class Location implements Comparable<Location> {
     
     public int  r;
     public int  c;
     public boolean occupied;
     public int smell; 
+    int avgDist; 
+    int leeValue;
+    
+      
+int[] xShift = {-1, 0,  0 ,1};
+int[] yShift = { 0, 1, -1, 0};
 
     public int xPixel  () { 
       return c * 16  + 8;
     }
     
+    void setLee (int num) { 
+      leeValue = num; 
+    } 
+    
+    abstract boolean isValid();
+    
+    int getLee () { 
+      return leeValue;
+    } 
+    
+    int computeShortestPath( Location g) { 
+   /* LinkedList<Location> queue = new LinkedList<Location>();
+ 
+    queue.add(f); 
+    ArrayList<Location> explored = new ArrayList<Location>();
+    explored.add(f);
+    int i = 0;
+    while(!queue.isEmpty()){
+      Location current = queue.pollFirst();
+            if(current.equals(g)) {
+                return g.getLee();
+            }
+            else{
+                    queue.addAll(current.getNeighbors());
+            }
+             current.setLee(i ); 
+             i ++ 
+        }
+    return g.getLee(); */
+    
+    return Math.abs(getR() - g.getR()) + Math.abs(getC() - g.getC());
+  
+    }
+
+    
+   
+    void setAvgDist(int num) { 
+      avgDist = num;
+    } 
+    
+    int getAvgDist() { return avgDist; } 
+
     public int yPixel () { 
       return r * 16 + 8; 
     }
@@ -30,17 +80,20 @@ abstract class Location implements Comparable<Location> {
 	this.c = y;
     }
     
-    abstract boolean hasDot();
-    
+
+        abstract boolean hasDot();
     public boolean isOccupied () { 
       return occupied; 
     } 
-    
-    abstract void setDot (Dot d);
+
 	   
     public Location (int x, int y) {
 	      this.r = x; 
 	      this.c = y;     
+<<<<<<< HEAD
+=======
+       
+>>>>>>> 737355c003c76040c1dc11992b363ae0921c10b1
         smell = 0; 
     }
     
@@ -51,16 +104,15 @@ abstract class Location implements Comparable<Location> {
     public void  setSmell(int sm) { 
       smell = sm;
     } 
-    
-    public int compareTo (Location other) { 
-      return  smell - other.smell;
-    } 
+ 
+   public  int compareTo (Location other) { 
+     
+     return avgDist - other.avgDist;
+   }
 
-    abstract boolean isValid ();
+ public String toString () { 
 
-    public String toString () { 
-
-  	return "(" + r+ "," + c+ ")" ;
+  	return "(" + r + "," +  c+ ")" ;
     } 
 
 }
