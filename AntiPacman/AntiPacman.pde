@@ -16,16 +16,19 @@
   RedGhost n ;
   Location locN;
   
+
   public Location[][] maze;
   int x, y;
   PImage mazeimg;
   PImage pacman;
   PImage red; 
-  //long start = System.nanoTime(), end; 
- Timer timer = new Timer();
- boolean called = true; 
-int a = 0;
- 
+  boolean called = true; 
+  int a = 0;
+   
+  
+int[] xShift = {-1, 0,  0 ,1};
+int[] yShift = { 0, 1, -1, 0};
+
   void setup() {
     size(448, 576);
     //size(448, 726);
@@ -35,7 +38,7 @@ int a = 0;
     image(mazeimg, 0, 0);
 
 
-    //System.out.println(start);
+    //////////System.out.println(start);
     int cols = 28;
     String[] lines = loadStrings("MainMaze.txt");
     //String[] mazeLines = new String[lines.length];
@@ -43,7 +46,7 @@ int a = 0;
  
     for (int r = 0; r < lines.length; r ++) { 
       for (int c = 0; c < lines[0].length(); c ++) { 
-        //System.out.println("row: " + r + " col: " + c);
+        //////////System.out.println("row: " + r + " col: " + c);
         if (lines[r].charAt(c) == '0') { 
           maze[r][c] = new Wall (r, c); 
         } else {
@@ -62,7 +65,7 @@ int a = 0;
             rect (x1, y1, (width/ 28), (height/36));
           } 
           else if (maze[r][c].isValid()){ // if it's an open space
-          //System.out.println ("x: " + r + " y: " + c);
+          //////////System.out.println ("x: " + r + " y: " + c);
           
             fill(#000000); 
             //noStroke(); (add this in later when we're done)
@@ -102,10 +105,7 @@ int a = 0;
      
      n = redd;
 
-     exit = new RedGhost();
-     locExit = maze[exit.getR()][exit.getC()];
-     exit.moveTo(maze[int(random(0.0, 28.0))][int(random(0.0, 36.0))]);
-     ellipse(exit.xPixel() , exit.yPixel(), 16, 16);
+
      
       //System.out.println("red: "+ maze[redd.getR()][redd.getC()]);
     
@@ -115,13 +115,13 @@ int a = 0;
   }
   
   void draw() {
-    if (!n.toString().equals("red"))
-    System.out.println (n);
+   
+    //////////System.out.println (n);
      a++; 
   
   
     if (called && a == 40) { 
-      System.out.println (true);
+      //System.out.println (true);
       redd.moveRandom(); 
          pink.moveRandom(); 
          blue.moveRandom(); 
@@ -150,7 +150,7 @@ int a = 0;
         
     fill (color(0,255,0));
     locPac = maze[pac.getR()][pac.getC()]; 
-    ellipse (pac.xPixel(), pac.yPixel() , 16, 16);
+    ellipse (pac.xPixel() , pac.yPixel() , 16, 16);
      
      
     fill (color(255,0,0));
@@ -172,102 +172,30 @@ int a = 0;
     ellipse (orange.xPixel(), orange.yPixel(), 16, 16);
 
     //long difference = System.nanoTime() - start;
-    //System.out.println (difference * Math.pow(10,-9));
+    //////////System.out.println (difference * Math.pow(10,-9));
 
-    fill(#ffffff);
-    ellipse (exit.xPixel(), exit.yPixel(), 16, 16);    
+     
       
-   }}
-   // System.out.println (redd.getR()); 
+   }
   
-   //System.out.println (redd.getC()); 
+  if (locRed.equals(locPac) || locBlue.equals(locPac) || locOrange.equals(locPac) || locPink.equals(locPac)){ 
+    background(0);
+    println("game over: " + pac.score + " points earned");
+    noLoop();
+    try {
+        Thread.sleep(1000);
+    } catch (Exception e) {exit();}
+    exit();
+      } 
   
-   
-    
-
-  
-
-   
  
-   
-    
-    // ellipse ( pac.xPixel(), pac.yPixel() , 16, 16);
-    
-public void solve() {
-  ArrayList
-  QueueFrontier front = new QueueFrontier();
-  // throw exception if style >= 4??
+        }
+            
 
-  while (front.size() > 0) {
-      Location current = front.next();
-      // if not done, set the spots u searched to a .
-      maze.set(current.getR(), current.getC(), '.'); // i think you have to add another redghost object instead
-      // adding frontiers
-    for (Location neighbor:getValidNeighbors(current, style == 3)) {
-        front.add(neighbor);
-        //System.out.println("front added");
-        maze.set(neighbor.getR(), neighbor.getC(), '?'); // ? = frontier
-    } 
-
-    //System.out.println("xcor: " + current.getR() + " ycor: " + current.getC());
-    //System.out.println(front.toString());
-  }
-    } 
-    
-    public ArrayList<Location> getValidNeighbors(Location l) {
-  ArrayList<Location> neighbors = new ArrayList<Location>();
-  if (maze.get(l.getR() + 1, l.getC()) == ' ') {
-      neighbors.add(new Location(l.getR() + 1, l.getC(), l, distToStart(l.getR() + 1, l.getC()), distToGoal(l.getR() + 1, l.getC())));
-  }
-  if (maze.get(l.getR(), l.getC() + 1) == ' ') {
-      neighbors.add(new Location(l.getR(), l.getC() + 1, l, distToStart(l.getR(), l.getC() + 1), distToGoal(l.getR(), l.getC() + 1)));
-  }
-  if (maze.get(l.getR() - 1, l.getC()) == ' ') {
-      neighbors.add(new Location(l.getR() - 1, l.getC(), l, distToStart(l.getR() - 1, l.getC()), distToGoal(l.getR() - 1, l.getC())));
-  }
-  if (maze.get(l.getR(), l.getC() - 1) == ' ') {
-      neighbors.add(new Location(l.getR(), l.getC() - 1, l, distToStart(l.getR(), l.getC() - 1), distToGoal(l.getR(), l.getC() - 1)));
-  }
-  return neighbors;
-    }
-
-    private int distToStart(int r, int c) {
-  Location start = maze.getStart();
-  return Math.abs(pacLoc.getR() - r) + Math.abs(pacLoc.getC() - c);
-    }
-
-    private int distToGoal(int r, int c) {
-  Location end = maze.getEnd();
-  return Math.abs(locExit.getR() - pacLoc.getR()) + Math.abs(locExit.getC() - pacLoc.getC());
-    }
-    
     
       void keyPressed() {
-        
     
-     /*if (locPac.getR() == 17 && locPac.getC() == 27) { 
-          pac.moveTo(maze[17][0]);
-          maze[17][0].setSmell(10);
-          maze[17][27].setSmell(9);
-    } else if (locPac.getR() == 17 && locPac.getC() == 0) { 
-       pac.moveTo(maze[17][27]);
-       maze[17][27].setSmell(10);   
-       maze[17][0].setSmell(9);
-    } 
-    
-     if (locPac.hasDot()) { 
-      pac.setScore (pac.getScore() + 1); 
-      locPac.setDot(new Dot("empty"));
-    }
-     
-    //System.out.println (locPac);
-   
-    locPac = maze[pac.getR()][pac.getC()];  
-    
-     if (locPac.hasDot()) { 
-      pac.setScore (pac.getScore() + 1); 
-      locPac.setDot(new Dot("empty")); */ 
-    
+
 
       // 1 = red, 2 = pink, 3 =  orange, 4 = blue;
       
@@ -284,9 +212,9 @@ public void solve() {
  
   
       locN = maze[n.getR()][n.getC()];
-      System.out.println(locN);
+      ////////System.out.println(locN);
     
-      //System.out.println(n.getLocation());
+      //////////System.out.println(n.getLocation());
         if (key == CODED) {
 
       if (keyCode == UP) {
@@ -294,44 +222,64 @@ public void solve() {
         if (n.getR() > 0 && maze[n.getR() -1][n.getC()].isValid()) 
  
         locN = maze[n.getR()- 1][n.getC()];
-        System.out.println(locN);
-            //System.out.println(n.getLocation());
+        ////////System.out.println(locN);
+            //////////System.out.println(n.getLocation());
       } else if (keyCode == DOWN) {
         if (n.getR() < 35 && maze[n.getR() + 1][n.getC()].isValid()) 
         locN = maze[n.getR()+1][n.getC()];
-            //System.out.println(n.getLocation());
+            //////////System.out.println(n.getLocation());
       } else if (keyCode == RIGHT) { 
         if (n.getC() < 27 && maze[n.getR()][n.getC() + 1].isValid()) { 
-          //System.out.println ("true");
+          //////////System.out.println ("true");
         locN = maze[n.getR()][n.getC() + 1];
-            //System.out.println(n.getLocation());
+            //////////System.out.println(n.getLocation());
         }
-        //System.out.println ("false");
+        //////////System.out.println ("false");
       } else if (keyCode == LEFT) { 
         if (n.getC() > 0 && maze[n.getR()][n.getC() - 1].isValid()) 
         locN = maze[n.getR()][n.getC() - 1];
-            //System.out.println(n.getLocation());
+            //////////System.out.println(n.getLocation());
       }
-        }
-        
+      
+           ArrayList<Location> neighbors = new ArrayList<Location>();
+     neighbors.clear();
+     
+      for (int i = 0; i < xShift.length; i ++) { 
+         if(pac.getR() + xShift[i] > 0 && pac.getR() + xShift[i] < 36 && pac.getC() + yShift[i] > 0 && pac.getC() + yShift[i] < 28) { 
+         if ( maze[pac.getR() + xShift[i]][pac.getC() + yShift[i]].isValid()) { 
+           neighbors.add(maze[pac.getR() + xShift[i]][pac.getC() + yShift[i]]); 
+         } 
+         }
+      }
     
-   
-    //}
-      //pac.getLocation().setSmell(9);
-     /* for (int row = 0; row < maze.length; row ++) {
-        for (int col = 0; col < maze[row].length; col ++) { 
-          if (maze[row][col].getSmell() > 0) { 
-            maze[row][col].setSmell(maze[row][col].getSmell() - 1);
-          }
-        }}  
-      pac.moveTo(locPac);
-      locPac.setSmell(10);
-      redd.moveCloser(locPac); */ 
-     // System.out.println (locN);
+
+      for (Location n: neighbors) {
+        
+         int reddist= n.computeShortestPath(redd.getLocation()); 
+         int pinkdist = n.computeShortestPath(pink.getLocation()); 
+         int bluedist = n.computeShortestPath(blue.getLocation());
+         int orangedist = n.computeShortestPath(orange.getLocation()); 
+        
+        n.setAvgDist((reddist + pinkdist + bluedist +orangedist)/5);
+      }
+      
+       java.util.Collections.sort(neighbors);
+       
+       //for (Location local: neighbors) { 
+         Location target = neighbors.get(0);
+        
+        for (Location n: neighbors) {
+            if (locPac.hasDot()) { 
+      pac.setScore (pac.getScore() + 1); 
+      locPac.setDot(new Dot("empty")); 
+         pac.moveTo(n);
+        }
+        }
+
    
         n.moveTo(maze[locN.getR()][locN.getC()]);
      
     
-
+        }
 }
   

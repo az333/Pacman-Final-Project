@@ -8,9 +8,7 @@ public class RedGhost extends Ghost {
   public int dotLimit = 0;
   String colory; 
 
-  
-  int[] xShift = {-1, 0,  0 ,1};
-  int[] yShift = { 0, 1, -1, 0};
+
 
   
   public RedGhost() {

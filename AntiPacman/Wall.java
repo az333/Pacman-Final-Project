@@ -18,4 +18,7 @@ public class Wall extends Location {
     }
     
     public void setDot (Dot d) {} 
+    
+    
+    
 }
