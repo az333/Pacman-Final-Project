@@ -14,6 +14,9 @@
   RedGhost n ;
   Location locN;
   
+  int numDots;
+  ArrayList <Location> ghostLocs = new ArrayList<Location>();
+  
 
 
  public Location[][] maze;
@@ -77,7 +80,7 @@ color rectColor;
           } 
           else if (maze[r][c].isValid()){ // if it's an open space
           //////////System.out.println ("x: " + r + " y: " + c);
-          
+            numDots ++; 
             fill(#000000); 
             //noStroke(); (add this in later when we're done)
             rect (x1, y1, (width/ 28), (height/36));
@@ -207,45 +210,68 @@ color rectColor;
      
       
    }
+   
+   if (numDots == 0) { 
+     
+     background(0);
+       println("/////////GAME OVER/////////");
+       println ("Pacman has eaten all the dots! YOU LOST."); 
+       println ("You have stayed alive for " + pac.score + " moves.");
+       noLoop();
+    try {
+        Thread.sleep(1000);
+    } catch (Exception e) {exit();}
+    exit();
+     
+     
+     
+   } 
+   
+  ghostLocs.clear();
+  ghostLocs.add(redd.getLocation()); 
+  ghostLocs.add(pink.getLocation()); 
+  ghostLocs.add(blue.getLocation()); 
+  ghostLocs.add(orange.getLocation()); 
   
-  if (locRed.equals(locPac) || locBlue.equals(locPac) || locOrange.equals(locPac) || locPink.equals(locPac)){ 
-    background(0);
-    println("game over: " + pac.score + " points earned");
+  for (int i = 0; i < ghostLocs.size(); i ++) { 
+    
+    Location temp = ghostLocs.get(i);
+    if (temp == pac.getLocation()) { 
+      
+         if ((temp.getR() > pac.getR() && pac.getOrien() ==2) || 
+             (temp.getR() < pac.getR() && pac.getOrien() == 1) || 
+             (temp.getC() > pac.getC() && pac.getOrien() == 4) || 
+             (temp.getC() < pac.getC() && pac.getOrien() == 3) ) { 
+           
+       background(0);
+       println("/////////GAME OVER/////////");
+       println ("Pacman has eaten you! YOU LOST."); 
+       println ("You have stayed alive for " + pac.score + " moves.");
+       noLoop();
+    try {
+        Thread.sleep(1000);
+    } catch (Exception e) {exit();}
+    exit();
+      } else { 
+        background(0);
+    
+    println("/////////GAME OVER/////////") ;
+    println("You have eaten Pacman! YOU WON."); 
+    println("You managed to catch Pacman in " + pac.score + " moves."); 
     noLoop();
     try {
         Thread.sleep(1000);
     } catch (Exception e) {exit();}
     exit();
+        
       } 
+      
+  }
+  }
+  }
   
  
-        }
-            
-void update(int x, int y) {
-  if ( overRect(rectX, rectY, rectSize, rectSize) ) {
-    rectOver = true;
-  } else {
-    rectOver = false;
-  }
-}
 
-void mousePressed() {
-
-  if (rectOver) {
-    draw(); 
-  }
-}
-
-boolean overRect(int x, int y, int width, int height)  {
-  if (mouseX >= x && mouseX <= x+width && 
-      mouseY >= y && mouseY <= y+height) {
-    return true;
-  } else {
-    return false;
-  }
-}
-
-    
       void keyPressed() {
     
 
@@ -276,6 +302,14 @@ boolean overRect(int x, int y, int width, int height)  {
        n.moveTo(maze[17][27]);
        
     } 
+    
+      if (locPac.getR() == 17 && locPac.getC() == 27) { 
+          pac.moveTo(maze[17][0]);
+    
+    } else if (locPac.getR() == 17 && locPac.getC() == 0) { 
+       pac.moveTo(maze[17][27]);
+       
+    }
       //////////System.out.println(n.getLocation());
         if (key == CODED) {
 
@@ -354,6 +388,16 @@ boolean overRect(int x, int y, int width, int height)  {
         //System.out.println();
          
          Location old = pac.getLocation(); 
+         if (temp.getR() > pac.getR()) {
+           pac.setOrien(2); 
+         } if ( temp.getR() < pac.getR()) { 
+           pac.setOrien(1); 
+         } if (temp.getC() > pac.getC()) { 
+           pac.setOrien(4); 
+         } if (temp.getC() < pac.getC()) { 
+           pac.setOrien (3);
+         } 
+         
          pac.moveTo(temp);
          
          pac.setPrev (old);
@@ -362,6 +406,7 @@ boolean overRect(int x, int y, int width, int height)  {
          //System.out.println("pac: " + pac.getLocation());
           if (temp.hasDot()) { 
           temp.setDot(new Dot("empty"));
+          numDots --; 
           }
         
         

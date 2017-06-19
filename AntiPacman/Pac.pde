@@ -3,6 +3,7 @@ class Pacman extends Creature {
 
    int score; 
    int[] orientations = {1, 2, 3, 4}; 
+   int orientation; 
    Location previous; 
    // 1 = up, 2 = down, 3 = left,4 = right 
   
@@ -11,6 +12,9 @@ class Pacman extends Creature {
     putSelfInGrid(); 
 
   }
+  
+  public void setOrien (int num) { orientation = num; } 
+  public int getOrien () { return orientation; } 
   
   public void setPrev (Location loc) { 
     previous = loc; 
