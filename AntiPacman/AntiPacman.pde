@@ -14,7 +14,10 @@ RedGhost orange;
 RedGhost n ;
 Location locN;
 
-boolean moveLeft = false;
+int numDots;
+ArrayList <Location> ghostLocs = new ArrayList<Location>();
+
+
 
 public Location[][] maze;
 int x, y;
@@ -76,7 +79,7 @@ void setup() {
         rect (x1, y1, (width/ 28), (height/36));
       } else if (maze[r][c].isValid()) { // if it's an open space
         //////////System.out.println ("x: " + r + " y: " + c);
-
+        numDots ++; 
         fill(#000000); 
         //noStroke(); (add this in later when we're done)
         rect (x1, y1, (width/ 28), (height/36));
@@ -120,16 +123,11 @@ void setup() {
   //  image (loadImage("pacman2", "gif"), pac.xPixel(), pac.yPixel());
 }
 
+
 void draw() {
 
   //////////System.out.println (n);
   a++; 
-  if (moveLeft) {
-    //if (n.getC() > 0 && maze[n.getR()][n.getC() - 1].isValid()) {
-    System.out.println("Hi!");
-    locN = maze[n.getR()][n.getC() - 1];
-    //}
-  }
 
 
   if (called && a == 40) { 
@@ -160,8 +158,8 @@ void draw() {
 
 
 
-  //background(255);
-  //mazeimg = loadImage("mazeimg.png");
+  background(255);
+  mazeimg = loadImage("mazeimg.png");
   image(mazeimg, 0, 0);
   for (int r = 0; r < maze.length; r ++) { 
     for (int c = 0; c < maze[r].length; c ++) { 
@@ -204,9 +202,12 @@ void draw() {
     //////////System.out.println (difference * Math.pow(10,-9));
   }
 
-  if (locRed.equals(locPac) || locBlue.equals(locPac) || locOrange.equals(locPac) || locPink.equals(locPac)) { 
+  if (numDots == 0) { 
+
     background(0);
-    println("game over: " + pac.score + " points earned");
+    println("/////////GAME OVER/////////");
+    println ("Pacman has eaten all the dots! YOU LOST."); 
+    println ("You have stayed alive for " + pac.score + " moves.");
     noLoop();
     try {
       Thread.sleep(1000);
@@ -215,34 +216,60 @@ void draw() {
       exit();
     }
     exit();
+  } 
+
+  ghostLocs.clear();
+  ghostLocs.add(redd.getLocation()); 
+  ghostLocs.add(pink.getLocation()); 
+  ghostLocs.add(blue.getLocation()); 
+  ghostLocs.add(orange.getLocation()); 
+
+  for (int i = 0; i < ghostLocs.size(); i ++) { 
+
+    Location temp = ghostLocs.get(i);
+    if (temp == pac.getLocation()) { 
+
+      if ((temp.getR() > pac.getR() && pac.getOrien() ==2) || 
+        (temp.getR() < pac.getR() && pac.getOrien() == 1) || 
+        (temp.getC() > pac.getC() && pac.getOrien() == 4) || 
+        (temp.getC() < pac.getC() && pac.getOrien() == 3) ) { 
+
+        background(0);
+        println("/////////GAME OVER/////////");
+        println ("Pacman has eaten you! YOU LOST."); 
+        println ("You have stayed alive for " + pac.score + " moves.");
+        noLoop();
+        try {
+          Thread.sleep(1000);
+        } 
+        catch (Exception e) {
+          exit();
+        }
+        exit();
+      } else { 
+        background(0);
+
+        println("/////////GAME OVER/////////") ;
+        println("You have eaten Pacman! YOU WON."); 
+        println("You managed to catch Pacman in " + pac.score + " moves."); 
+        noLoop();
+        try {
+          Thread.sleep(1000);
+        } 
+        catch (Exception e) {
+          exit();
+        }
+        exit();
+      }
+    }
   }
 }
 
-void update(int x, int y) {
-  if ( overRect(rectX, rectY, rectSize, rectSize) ) {
-    rectOver = true;
-  } else {
-    rectOver = false;
-  }
-}
 
-void mousePressed() {
-
-  if (rectOver) {
-    draw();
-  }
-}
-
-boolean overRect(int x, int y, int width, int height) {
-  if (mouseX >= x && mouseX <= x+width && 
-    mouseY >= y && mouseY <= y+height) {
-    return true;
-  } else {
-    return false;
-  }
-}
 
 void keyPressed() {
+
+
 
   // 1 = red, 2 = pink, 3 =  orange, 4 = blue;
 
@@ -257,9 +284,23 @@ void keyPressed() {
     n = blue;
   } 
 
+
+
   locN = maze[n.getR()][n.getC()];
   ////////System.out.println(locN);
 
+
+  if (locN.getR() == 17 && locN.getC() == 27) { 
+    n.moveTo(maze[17][0]);
+  } else if (locN.getR() == 17 && locN.getC() == 0) { 
+    n.moveTo(maze[17][27]);
+  } 
+
+  if (locPac.getR() == 17 && locPac.getC() == 27) { 
+    pac.moveTo(maze[17][0]);
+  } else if (locPac.getR() == 17 && locPac.getC() == 0) { 
+    pac.moveTo(maze[17][27]);
+  }
   //////////System.out.println(n.getLocation());
   if (key == CODED) {
 
@@ -282,45 +323,88 @@ void keyPressed() {
       }
       //////////System.out.println ("false");
     } else if (keyCode == LEFT) { 
-      moveLeft = true;
-      //if (n.getC() > 0 && maze[n.getR()][n.getC() - 1].isValid()) 
-      //locN = maze[n.getR()][n.getC() - 1];
+      if (n.getC() > 0 && maze[n.getR()][n.getC() - 1].isValid()) 
+        locN = maze[n.getR()][n.getC() - 1];
       //////////System.out.println(n.getLocation());
     }
 
-    ArrayList<Location> neighbors = new ArrayList<Location>();
-    neighbors.clear();
+    ArrayList<Location> neighbors = pac.getLocation().getNeighbors();
 
-    for (int i = 0; i < xShift.length; i ++) { 
-      if (pac.getR() + xShift[i] > 0 && pac.getR() + xShift[i] < 36 && pac.getC() + yShift[i] > 0 && pac.getC() + yShift[i] < 28) { 
-        if ( maze[pac.getR() + xShift[i]][pac.getC() + yShift[i]].isValid()) { 
-          neighbors.add(maze[pac.getR() + xShift[i]][pac.getC() + yShift[i]]);
-        }
-      }
+
+    //System.out.println ("before: " + neighbors);
+
+    for (int i = 0; i < neighbors.size(); i ++ ) {
+      Location locat = neighbors.get(i);
+      // System.out.println( "why");
+      //int dist= locat.computeShortestPath(n.getLocation()); 
+      int reddist= locat.computeShortestPath(redd.getLocation());
+      //System.out.println("red: " + reddist);
+      int pinkdist = locat.computeShortestPath(pink.getLocation()); 
+      //System.out.println("pink" + pinkdist);
+      int bluedist = locat.computeShortestPath(blue.getLocation());
+      //System.out.println("blue: " + bluedist);
+      int orangedist = locat.computeShortestPath(orange.getLocation()); 
+      //System.out.println("orange: " + orangedist);
+
+      locat.setAvgDist((reddist + pinkdist + bluedist +orangedist)/5.0);
+      //locat.setAvgDist(dist);
+      neighbors.set(i, locat);
+
+      //System.out.println ("avgDistneigh: " + neighbors.get(i).getAvgDist());
+      //System.out.println ("avgDistlocat: " + locat.getAvgDist());
     }
 
-    for (Location n : neighbors) {
 
-      int reddist= n.computeShortestPath(redd.getLocation()); 
-      int pinkdist = n.computeShortestPath(pink.getLocation()); 
-      int bluedist = n.computeShortestPath(blue.getLocation());
-      int orangedist = n.computeShortestPath(orange.getLocation()); 
 
-      n.setAvgDist((reddist + pinkdist + bluedist +orangedist)/5);
-    }
+    Collections.sort(neighbors, new LocCompare());
+    //System.out.println ("after: " + neighbors);
+    //System.out.println();
 
-    java.util.Collections.sort(neighbors);
 
     //for (Location local: neighbors) { 
-    Location target = neighbors.get(0);
+    // Location target = neighbors.get(0);
 
-    for (Location n : neighbors) {
-      if (locPac.hasDot()) { 
+    Location temp = neighbors.get(0);
 
-        locPac.setDot(new Dot("empty")); 
-        pac.moveTo(n);
-      }
+
+    // for (Location a: neighbors) {
+    // System.out.println("loc: "  + a);
+    //System.out.println ("previous: " + pac.getPrev()); 
+    //System.out.println ("nextbefore: " + temp);
+    if (pac.getPrev().getR() == temp.getR() && pac.getPrev().getC() == temp.getC() && neighbors.size() > 1) { 
+      temp = neighbors.get(1);
+    } 
+
+    //System.out.println ("nextafter: " + temp);
+    //System.out.println();
+
+    Location old = pac.getLocation(); 
+    if (temp.getR() > pac.getR()) {
+      pac.setOrien(2);
+    } 
+    if ( temp.getR() < pac.getR()) { 
+      pac.setOrien(1);
+    } 
+    if (temp.getC() > pac.getC()) { 
+      pac.setOrien(4);
+    } 
+    if (temp.getC() < pac.getC()) { 
+      pac.setOrien (3);
+    } 
+
+    pac.moveTo(temp);
+
+    pac.setPrev (old);
+
+
+    //System.out.println("pac: " + pac.getLocation());
+    if (temp.hasDot()) { 
+      temp.setDot(new Dot("empty"));
+      numDots --;
     }
+
+
+
 
     n.moveTo(maze[locN.getR()][locN.getC()]);
     pac.setScore (pac.getScore() + 1);
